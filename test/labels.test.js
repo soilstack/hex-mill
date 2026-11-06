@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { generate, readParams, toSvg } from '../src/index.js';
 import { layoutText, parsePathData, parseSvgFont } from '../src/fonts.js';
@@ -192,6 +193,35 @@ test('parameters round-trip through the SVG', () => {
   assert.equal(restored.lattice.size, 22);
   assert.equal(restored.lattice.layout, 'even-r');
   assert.equal(toSvg(generate(restored, { fonts })), toSvg(scene));
+});
+
+test('parameters survive a real save from Inkscape 1.4.4', () => {
+  const saved = readFileSync(new URL('./fixtures/inkscape-1.4.4-saved.svg', import.meta.url), 'utf8');
+  const restored = readParams(saved);
+  assert.equal(restored.lattice.size, 20);
+  assert.equal(restored.decorators.centre, 'dot');
+  const original = generate({ lattice: { size: 20 }, decorators: { centre: 'dot' } }, { fonts });
+  assert.deepEqual(restored, original.params);
+});
+
+test('parameters can be read however the metadata element is laid out', () => {
+  const params = { lattice: { size: 22 }, labels: { format: '%c & "%r" <x> ]]> end' } };
+  const json = JSON.stringify(params);
+  const escaped = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const split = json.replaceAll(']]>', ']]]]><![CDATA[>');
+  for (const svg of [
+    `<svg><metadata id="hexmill-params"><![CDATA[${split}]]></metadata></svg>`,
+    `<svg><metadata\n     id="hexmill-params"><![CDATA[${split}]]></metadata></svg>`,
+    `<svg><metadata\n  lang="en"\n  id='hexmill-params'\n>\n  <![CDATA[${split}]]>\n</metadata></svg>`,
+    `<svg><metadata id="hexmill-params">${escaped}</metadata></svg>`,
+  ]) {
+    assert.deepEqual(readParams(svg), params);
+  }
+});
+
+test('an SVG without Hex Mill parameters reads as null', () => {
+  assert.equal(readParams('<svg xmlns="http://www.w3.org/2000/svg"/>'), null);
+  assert.equal(readParams('<svg><metadata id="other">{}</metadata></svg>'), null);
 });
 
 test('labels count towards the statistics', () => {

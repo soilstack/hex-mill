@@ -1523,11 +1523,26 @@ function toSvg(scene) {
   ].join('\n');
 }
 
-/** Read the parameters back out of a Hex Mill SVG, or null if it has none. */
+const unescapeXml = (text) =>
+  text
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+
+/**
+ * Read the parameters back out of a Hex Mill SVG, or null if it has none.
+ * Editors reformat markup when they save: Inkscape puts each attribute on its
+ * own line, for example. So this accepts any layout of the metadata element,
+ * and accepts its content as CDATA or as escaped text.
+ */
 function readParams(svgText) {
-  const match = /<metadata id="hexmill-params"><!\[CDATA\[([\s\S]*?)\]\]><\/metadata>/.exec(svgText);
+  const match = /<metadata\b[^>]*\bid\s*=\s*["']hexmill-params["'][^>]*>([\s\S]*?)<\/metadata\s*>/.exec(svgText);
   if (!match) return null;
-  return JSON.parse(match[1].replaceAll(']]]]><![CDATA[>', ']]>'));
+  const body = match[1];
+  const sections = [...body.matchAll(/<!\[CDATA\[([\s\S]*?)\]\]>/g)].map((section) => section[1]);
+  return JSON.parse(sections.length ? sections.join('') : unescapeXml(body));
 }
 
 return { toSvg, readParams };

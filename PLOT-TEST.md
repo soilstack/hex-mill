@@ -8,6 +8,8 @@ Build the files with `npm run plot-test`. They appear in `out/`.
 
 No plotter needed. Check 6 below is also Inkscape-only.
 
+These checks and check 6 passed on Inkscape 1.4.4 on 2026-11-06. Check 6 first failed because of a bug in Hex Mill's reader, now fixed. The saved file is kept as a test in `test/fixtures`.
+
 1. Open `out/plot-test.svg` in Inkscape.
 2. Open **Document Properties**. The page should be 297 × 210 mm, with a scale of 1.
 3. Open the **Layers** panel. You should see six layers, named below.
