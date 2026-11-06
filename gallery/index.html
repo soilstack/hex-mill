@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hex Mill gallery</title>
+<style>
+:root { color-scheme: light dark; --bg: #f1efea; --card: #fbfaf7; --text: #24231f; --muted: #6d6a61; --line: #d9d5cc; --warn: #6b4a08; --warn-bg: #fbf0d9; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1c1c1a; --card: #242422; --text: #e9e7e1; --muted: #a19e94; --line: #42413c; --warn: #f0d48f; --warn-bg: #3d3115; } }
+* { box-sizing: border-box; }
+body { margin: 0 auto; max-width: 1300px; padding: 20px 16px 48px; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+h1 { margin: 0 0 6px; font-size: 24px; }
+h2 { margin: 36px 0 4px; font-size: 18px; }
+h3 { margin: 0 0 2px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+figure { margin: 0; padding: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+figure img { display: block; width: 100%; height: 220px; object-fit: contain; background: #e6e3dc; border-radius: 4px; }
+figcaption { margin-top: 8px; }
+figcaption p { margin: 0 0 4px; }
+.stats { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.warn { padding: 3px 6px; color: var(--warn); background: var(--warn-bg); border-radius: 4px; font-size: 12px; }
+figcaption code { display: block; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+table { border-collapse: collapse; margin-top: 10px; }
+td { padding: 4px 16px 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>Hex Mill gallery</h1>
+<p>Every parameter Hex Mill offers, shown one at a time. Each image is a real SVG, so you can open it in Inkscape, plot it, or load it into <code>hexmill.html</code> to see its settings. Only the changes from a 150 × 105 mm, 7 × 5 base example are listed.</p>
+<section><h2>Working out the size</h2><p>Page, hex size and hex count can't all be set freely, so you fix two and Hex Mill works out the third. All sizes refer to the theoretical lattice and ignore the inset.</p><div class="grid"><figure>
+<a href="solve-count.svg"><img src="solve-count.svg" alt="Work out hex count" loading="lazy"></a>
+<figcaption><h3>Work out hex count</h3><p>A4 and 20 mm hexes are fixed. Hex Mill fits as many as it can.</p><p class="stats">16 × 9, 144 hexes, 779 strokes, 13.12 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;A4&quot;,&quot;width&quot;:null,&quot;height&quot;:null},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:20}}</code></figcaption>
+</figure>
+<figure>
+<a href="solve-hex-size.svg"><img src="solve-hex-size.svg" alt="Work out hex size" loading="lazy"></a>
+<figcaption><h3>Work out hex size</h3><p>A4 and 9 × 6 hexes are fixed. Hex Mill finds the largest hex that fits.</p><p class="stats">9 × 6, 54 hexes, 291 strokes, 7.62 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;A4&quot;,&quot;width&quot;:null,&quot;height&quot;:null},&quot;lattice&quot;:{&quot;solve&quot;:&quot;size&quot;,&quot;columns&quot;:9,&quot;rows&quot;:6}}</code></figcaption>
+</figure>
+<figure>
+<a href="solve-page.svg"><img src="solve-page.svg" alt="Work out page size" loading="lazy"></a>
+<figcaption><h3>Work out page size</h3><p>5 × 4 hexes at 22 mm are fixed. The page wraps the map plus its margins.</p><p class="stats">5 × 4, 20 hexes, 109 strokes, 2.00 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;page&quot;,&quot;columns&quot;:5,&quot;rows&quot;:4,&quot;size&quot;:22}}</code></figcaption>
+</figure>
+<figure>
+<a href="measure-flat.svg"><img src="measure-flat.svg" alt="Size by flat to flat" loading="lazy"></a>
+<figcaption><h3>Size by flat to flat</h3><p>20 mm between opposite flat sides.</p><p class="stats">7 × 4, 28 hexes, 155 strokes, 2.56 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;measure&quot;:&quot;flat&quot;,&quot;size&quot;:20}}</code></figcaption>
+</figure>
+<figure>
+<a href="measure-edge.svg"><img src="measure-edge.svg" alt="Size by edge length" loading="lazy"></a>
+<figcaption><h3>Size by edge length</h3><p>20 mm along one edge, so a much larger hex.</p><p class="stats">4 × 2, 8 hexes, 42 strokes, 1.25 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;measure&quot;:&quot;edge&quot;,&quot;size&quot;:20}}</code></figcaption>
+</figure>
+<figure>
+<a href="measure-corner.svg"><img src="measure-corner.svg" alt="Size by corner to corner" loading="lazy"></a>
+<figcaption><h3>Size by corner to corner</h3><p>20 mm between opposite corners.</p><p class="stats">8 × 4, 32 hexes, 176 strokes, 2.54 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;measure&quot;:&quot;corner&quot;,&quot;size&quot;:20}}</code></figcaption>
+</figure></div></section>
+<section><h2>Page, margins and alignment</h2><p>The blue guides show the margins and the map edge. When hexes don't fill the area inside the margins, alignment decides where the leftover space goes.</p><div class="grid"><figure>
+<a href="paper-a5-portrait.svg"><img src="paper-a5-portrait.svg" alt="Named paper, portrait" loading="lazy"></a>
+<figcaption><h3>Named paper, portrait</h3><p>A5 in portrait.</p><p class="stats">8 × 10, 80 hexes, 436 strokes, 6.65 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;A5&quot;,&quot;orientation&quot;:&quot;portrait&quot;,&quot;width&quot;:null,&quot;height&quot;:null},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:18}}</code></figcaption>
+</figure>
+<figure>
+<a href="paper-custom.svg"><img src="paper-custom.svg" alt="Custom paper" loading="lazy"></a>
+<figcaption><h3>Custom paper</h3><p>A long 200 × 70 mm strip.</p><p class="stats">11 × 2, 22 hexes, 114 strokes, 1.79 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;Custom&quot;,&quot;width&quot;:200,&quot;height&quot;:70},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:18}}</code></figcaption>
+</figure>
+<figure>
+<a href="margins-uneven.svg"><img src="margins-uneven.svg" alt="Different margins per side" loading="lazy"></a>
+<figcaption><h3>Different margins per side</h3><p>Wide left and top margins, narrow right and bottom.</p><p class="stats">7 × 4, 28 hexes, 155 strokes, 2.06 m pen down</p><code>{&quot;margins&quot;:{&quot;top&quot;:22,&quot;right&quot;:5,&quot;bottom&quot;:5,&quot;left&quot;:34},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:16},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="align-top-left.svg"><img src="align-top-left.svg" alt="Aligned top left" loading="lazy"></a>
+<figcaption><h3>Aligned top left</h3><p>All leftover space goes to the right and bottom.</p><p class="stats">5 × 3, 15 hexes, 78 strokes, 1.78 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:26,&quot;align&quot;:{&quot;x&quot;:&quot;start&quot;,&quot;y&quot;:&quot;start&quot;}},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="align-centre.svg"><img src="align-centre.svg" alt="Centred" loading="lazy"></a>
+<figcaption><h3>Centred</h3><p>The default: leftover space is split evenly.</p><p class="stats">5 × 3, 15 hexes, 78 strokes, 1.78 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:26,&quot;align&quot;:{&quot;x&quot;:&quot;center&quot;,&quot;y&quot;:&quot;center&quot;}},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="align-bottom-right.svg"><img src="align-bottom-right.svg" alt="Aligned bottom right" loading="lazy"></a>
+<figcaption><h3>Aligned bottom right</h3><p>All leftover space goes to the left and top.</p><p class="stats">5 × 3, 15 hexes, 78 strokes, 1.78 m pen down</p><code>{&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:26,&quot;align&quot;:{&quot;x&quot;:&quot;end&quot;,&quot;y&quot;:&quot;end&quot;}},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
+</figure></div></section>
+<section><h2>Layouts</h2><p>One setting covers orientation and stagger, using the Red Blob Games names. Columns are <code>q</code> and rows are <code>r</code>, both counted from 0.</p><div class="grid"><figure>
+<a href="odd-q.svg"><img src="odd-q.svg" alt="odd-q" loading="lazy"></a>
+<figcaption><h3>odd-q</h3><p>Flat-top. Odd columns are shoved down.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;odd-q&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="even-q.svg"><img src="even-q.svg" alt="even-q" loading="lazy"></a>
+<figcaption><h3>even-q</h3><p>Flat-top. Even columns are shoved down.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;even-q&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="odd-r.svg"><img src="odd-r.svg" alt="odd-r" loading="lazy"></a>
+<figcaption><h3>odd-r</h3><p>Pointy-top. Odd rows are shoved right.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.94 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;odd-r&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="even-r.svg"><img src="even-r.svg" alt="even-r" loading="lazy"></a>
+<figcaption><h3>even-r</h3><p>Pointy-top. Even rows are shoved right.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.94 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;even-r&quot;}}</code></figcaption>
+</figure></div></section>
+<section><h2>Map edges</h2><p>Hexes can stay whole, or be cut along a straight map edge. Cut hexes are real geometry, not an SVG clip, so a plotter draws them correctly.</p><div class="grid"><figure>
+<a href="whole.svg"><img src="whole.svg" alt="Whole hexes" loading="lazy"></a>
+<figcaption><h3>Whole hexes</h3><p>The default, with ragged edges.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{}</code></figcaption>
+</figure>
+<figure>
+<a href="short-lines.svg"><img src="short-lines.svg" alt="Short lines" loading="lazy"></a>
+<figcaption><h3>Short lines</h3><p>Shoved columns lose one hex, which flattens the bottom edge.</p><p class="stats">7 × 5, 32 hexes, 176 strokes, 2.70 m pen down</p><code>{&quot;lattice&quot;:{&quot;shortLines&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-ends.svg"><img src="cut-ends.svg" alt="Cut ends" loading="lazy"></a>
+<figcaption><h3>Cut ends</h3><p>The first and last columns are cut in half.</p><p class="stats">7 × 5, 35 hexes, 145 strokes, 2.42 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutEnds&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-ragged.svg"><img src="cut-ragged.svg" alt="Cut ragged sides" loading="lazy"></a>
+<figcaption><h3>Cut ragged sides</h3><p>The top and bottom are straight, leaving half-hexes in alternate columns.</p><p class="stats">7 × 5, 38 hexes, 182 strokes, 3.03 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutRagged&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-both-closed.svg"><img src="cut-both-closed.svg" alt="Cut all sides, closed" loading="lazy"></a>
+<figcaption><h3>Cut all sides, closed</h3><p>Cut hexes are closed along the map edge, giving a straight border.</p><p class="stats">7 × 5, 38 hexes, 135 strokes, 2.70 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutEnds&quot;:true,&quot;cutRagged&quot;:true,&quot;closePartials&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-both-open.svg"><img src="cut-both-open.svg" alt="Cut all sides, open" loading="lazy"></a>
+<figcaption><h3>Cut all sides, open</h3><p>Cut hexes are left open, so no border is drawn.</p><p class="stats">7 × 5, 38 hexes, 135 strokes, 2.39 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutEnds&quot;:true,&quot;cutRagged&quot;:true,&quot;closePartials&quot;:false}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-closed-inset.svg"><img src="cut-closed-inset.svg" alt="Closed, with inset" loading="lazy"></a>
+<figcaption><h3>Closed, with inset</h3><p>The closing line respects the inset like every other edge.</p><p class="stats">7 × 5, 38 hexes, 135 strokes, 2.42 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutEnds&quot;:true,&quot;cutRagged&quot;:true,&quot;closePartials&quot;:true},&quot;render&quot;:{&quot;inset&quot;:1}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-open-inset.svg"><img src="cut-open-inset.svg" alt="Open, with inset" loading="lazy"></a>
+<figcaption><h3>Open, with inset</h3><p>Open cuts run right to the map edge.</p><p class="stats">7 × 5, 38 hexes, 135 strokes, 2.18 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutEnds&quot;:true,&quot;cutRagged&quot;:true,&quot;closePartials&quot;:false},&quot;render&quot;:{&quot;inset&quot;:1}}</code></figcaption>
+</figure>
+<figure>
+<a href="cut-pointy.svg"><img src="cut-pointy.svg" alt="Cut all sides, pointy-top" loading="lazy"></a>
+<figcaption><h3>Cut all sides, pointy-top</h3><p>The same options work in r layouts.</p><p class="stats">7 × 5, 37 hexes, 123 strokes, 2.71 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;odd-r&quot;,&quot;cutEnds&quot;:true,&quot;cutRagged&quot;:true}}</code></figcaption>
+</figure></div></section>
+<section><h2>Drawing</h2><p>An inset <code>i</code> draws each hex smaller than its lattice cell. The channel between neighbours is <code>2i</code>, and the visible paper gap is <code>2i</code> minus the pen width.</p><div class="grid"><figure>
+<a href="inset-small.svg"><img src="inset-small.svg" alt="Inset 0.5 mm" loading="lazy"></a>
+<figcaption><h3>Inset 0.5 mm</h3><p>A 1 mm channel between hexes.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.60 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:0.5}}</code></figcaption>
+</figure>
+<figure>
+<a href="inset-large.svg"><img src="inset-large.svg" alt="Inset 1.5 mm" loading="lazy"></a>
+<figcaption><h3>Inset 1.5 mm</h3><p>A 3 mm channel between hexes.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.36 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:1.5}}</code></figcaption>
+</figure>
+<figure>
+<a href="simplify.svg"><img src="simplify.svg" alt="Simplified" loading="lazy"></a>
+<figcaption><h3>Simplified</h3><p>Duplicate lines removed and the rest chained into the fewest strokes. Compare the pen-down length with the whole-hex example above.</p><p class="stats">7 × 5, 35 hexes, 191 strokes, 1.92 m pen down</p><code>{&quot;render&quot;:{&quot;simplify&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="corners.svg"><img src="corners.svg" alt="Corners only" loading="lazy"></a>
+<figcaption><h3>Corners only</h3><p>Short ticks at each corner, 2 mm long by default.</p><p class="stats">7 × 5, 35 hexes, 367 strokes, 1.51 m pen down</p><code>{&quot;render&quot;:{&quot;style&quot;:&quot;corners&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="corners-long.svg"><img src="corners-long.svg" alt="Longer corners" loading="lazy"></a>
+<figcaption><h3>Longer corners</h3><p>Corner length raised to 3.5 mm.</p><p class="stats">7 × 5, 35 hexes, 367 strokes, 2.14 m pen down</p><code>{&quot;render&quot;:{&quot;style&quot;:&quot;corners&quot;,&quot;cornerLength&quot;:3.5}}</code></figcaption>
+</figure>
+<figure>
+<a href="pen-width.svg"><img src="pen-width.svg" alt="Pen width 0.8 mm" loading="lazy"></a>
+<figcaption><h3>Pen width 0.8 mm</h3><p>Sets the stroke shown on screen, and the paper gap Hex Mill reports. It doesn't change the geometry.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;render&quot;:{&quot;penWidth&quot;:0.8}}</code></figcaption>
+</figure></div></section>
+<section><h2>Label numbering</h2><p>Each scheme is a format string with <code>%c</code> and <code>%r</code> for numbers, <code>%C</code> and <code>%R</code> for letters, <code>%h</code> for half-lines and <code>%n</code> for serial numbers.</p><div class="grid"><figure>
+<a href="xxyy.svg"><img src="xxyy.svg" alt="Column-row" loading="lazy"></a>
+<figcaption><h3>Column-row</h3><p>The classic four-digit form, and the default.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;xxyy&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="letter-number.svg"><img src="letter-number.svg" alt="Letter-number" loading="lazy"></a>
+<figcaption><h3>Letter-number</h3><p>Lettered columns, numbered rows.</p><p class="stats">7 × 5, 35 hexes, 167 strokes, 2.38 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;letter-number&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="18xx.svg"><img src="18xx.svg" alt="18xx" loading="lazy"></a>
+<figcaption><h3>18xx</h3><p>Numbers step by two along a column and alternate between columns.</p><p class="stats">7 × 5, 35 hexes, 170 strokes, 2.41 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;18xx&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="dotted.svg"><img src="dotted.svg" alt="Dotted" loading="lazy"></a>
+<figcaption><h3>Dotted</h3><p>A separator between column and row.</p><p class="stats">7 × 5, 35 hexes, 227 strokes, 2.74 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;dotted&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="serial-rows.svg"><img src="serial-rows.svg" alt="Serial, along rows" loading="lazy"></a>
+<figcaption><h3>Serial, along rows</h3><p>One running count.</p><p class="stats">7 × 5, 35 hexes, 182 strokes, 2.73 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;serial&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="serial-columns.svg"><img src="serial-columns.svg" alt="Serial, down columns" loading="lazy"></a>
+<figcaption><h3>Serial, down columns</h3><p>Counting from 100, down each column.</p><p class="stats">7 × 5, 35 hexes, 182 strokes, 2.64 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;serial&quot;,&quot;serialOrder&quot;:&quot;col&quot;,&quot;start&quot;:{&quot;serial&quot;:100}}}</code></figcaption>
+</figure>
+<figure>
+<a href="custom-format.svg"><img src="custom-format.svg" alt="Custom format" loading="lazy"></a>
+<figcaption><h3>Custom format</h3><p>Literal text works too: here a sheet prefix.</p><p class="stats">7 × 5, 35 hexes, 342 strokes, 2.88 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;custom&quot;,&quot;format&quot;:&quot;B-%C%02r&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="letters-tally.svg"><img src="letters-tally.svg" alt="Past Z: tally" loading="lazy"></a>
+<figcaption><h3>Past Z: tally</h3><p>Starting at column 25: Y, Z, AA, BB, CC.</p><p class="stats">7 × 5, 35 hexes, 232 strokes, 2.52 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;letter-number&quot;,&quot;letters&quot;:&quot;tally&quot;,&quot;start&quot;:{&quot;col&quot;:25}}}</code></figcaption>
+</figure>
+<figure>
+<a href="letters-spreadsheet.svg"><img src="letters-spreadsheet.svg" alt="Past Z: spreadsheet" loading="lazy"></a>
+<figcaption><h3>Past Z: spreadsheet</h3><p>Starting at column 25: Y, Z, AA, AB, AC.</p><p class="stats">7 × 5, 35 hexes, 242 strokes, 2.50 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;letter-number&quot;,&quot;letters&quot;:&quot;spreadsheet&quot;,&quot;start&quot;:{&quot;col&quot;:25}}}</code></figcaption>
+</figure>
+<figure>
+<a href="origin-top-right.svg"><img src="origin-top-right.svg" alt="Origin top right" loading="lazy"></a>
+<figcaption><h3>Origin top right</h3><p>Columns count from the right.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;origin&quot;:&quot;ur&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="origin-bottom-left.svg"><img src="origin-bottom-left.svg" alt="Origin bottom left" loading="lazy"></a>
+<figcaption><h3>Origin bottom left</h3><p>Rows count up from the bottom.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;origin&quot;:&quot;ll&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="origin-bottom-right.svg"><img src="origin-bottom-right.svg" alt="Origin bottom right" loading="lazy"></a>
+<figcaption><h3>Origin bottom right</h3><p>Both axes are reversed.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;origin&quot;:&quot;lr&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="start-step.svg"><img src="start-step.svg" alt="Start and step" loading="lazy"></a>
+<figcaption><h3>Start and step</h3><p>Columns count 10, 12, 14. Rows count 5, 10, 15.</p><p class="stats">7 × 5, 35 hexes, 180 strokes, 2.67 m pen down</p><code>{&quot;labels&quot;:{&quot;start&quot;:{&quot;col&quot;:10,&quot;row&quot;:5},&quot;step&quot;:{&quot;col&quot;:2,&quot;row&quot;:5}}}</code></figcaption>
+</figure>
+<figure>
+<a href="every-second.svg"><img src="every-second.svg" alt="Every second hex" loading="lazy"></a>
+<figcaption><h3>Every second hex</h3><p>Fewer labels means far fewer pen lifts.</p><p class="stats">7 × 5, 35 hexes, 86 strokes, 2.27 m pen down</p><code>{&quot;labels&quot;:{&quot;every&quot;:2}}</code></figcaption>
+</figure>
+<figure>
+<a href="label-partials.svg"><img src="label-partials.svg" alt="Label cut hexes" loading="lazy"></a>
+<figcaption><h3>Label cut hexes</h3><p>Off by default. Half-hexes at the top number as row 0.</p><p class="stats">7 × 5, 38 hexes, 208 strokes, 3.16 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutRagged&quot;:true},&quot;labels&quot;:{&quot;labelPartials&quot;:true,&quot;distance&quot;:0}}</code></figcaption>
+</figure>
+<figure>
+<a href="no-labels.svg"><img src="no-labels.svg" alt="No labels" loading="lazy"></a>
+<figcaption><h3>No labels</h3><p>Labels switched off.</p><p class="stats">7 × 5, 35 hexes, 35 strokes, 2.05 m pen down</p><code>{&quot;labels&quot;:{&quot;enabled&quot;:false}}</code></figcaption>
+</figure></div></section>
+<section><h2>Label style</h2><p>Labels are stroke fonts drawn as plain paths. Size is the height of a digit in mm. Bearing and distance place the label from the hex centre, and rotation turns it.</p><div class="grid"><figure>
+<a href="font-script.svg"><img src="font-script.svg" alt="Hershey Script" loading="lazy"></a>
+<figcaption><h3>Hershey Script</h3><p>One of 41 built-in fonts.</p><p class="stats">7 × 5, 35 hexes, 525 strokes, 3.26 m pen down</p><code>{&quot;labels&quot;:{&quot;font&quot;:&quot;HersheyScript1&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="font-gothic.svg"><img src="font-gothic.svg" alt="Hershey Gothic" loading="lazy"></a>
+<figcaption><h3>Hershey Gothic</h3><p>A multi-stroke font, so it takes much longer to plot.</p><p class="stats">7 × 5, 35 hexes, 1208 strokes, 3.63 m pen down</p><code>{&quot;labels&quot;:{&quot;font&quot;:&quot;HersheyGothEnglish&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="font-ems.svg"><img src="font-ems.svg" alt="EMS Tech" loading="lazy"></a>
+<figcaption><h3>EMS Tech</h3><p>One of the modern EMS fonts.</p><p class="stats">7 × 5, 35 hexes, 175 strokes, 2.75 m pen down</p><code>{&quot;labels&quot;:{&quot;font&quot;:&quot;EMSTech&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="size-large.svg"><img src="size-large.svg" alt="Digit height 3 mm" loading="lazy"></a>
+<figcaption><h3>Digit height 3 mm</h3><p>The default is about 11% of flat to flat.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 3.11 m pen down</p><code>{&quot;labels&quot;:{&quot;size&quot;:3}}</code></figcaption>
+</figure>
+<figure>
+<a href="place-centre.svg"><img src="place-centre.svg" alt="In the centre" loading="lazy"></a>
+<figcaption><h3>In the centre</h3><p>Distance 0.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;distance&quot;:0}}</code></figcaption>
+</figure>
+<figure>
+<a href="place-bottom.svg"><img src="place-bottom.svg" alt="At the bottom" loading="lazy"></a>
+<figcaption><h3>At the bottom</h3><p>Bearing 180°, measured clockwise from up.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;bearing&quot;:180}}</code></figcaption>
+</figure>
+<figure>
+<a href="rotated.svg"><img src="rotated.svg" alt="Rotated" loading="lazy"></a>
+<figcaption><h3>Rotated</h3><p>Rotation 90°, placed on the right with bearing 90°.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;labels&quot;:{&quot;rotation&quot;:90,&quot;bearing&quot;:90,&quot;distance&quot;:5}}</code></figcaption>
+</figure>
+<figure>
+<a href="anchor-start.svg"><img src="anchor-start.svg" alt="Anchor start" loading="lazy"></a>
+<figcaption><h3>Anchor start</h3><p>The text starts at the placement point.</p><p class="stats">7 × 5, 35 hexes, 262 strokes, 2.83 m pen down</p><code>{&quot;labels&quot;:{&quot;anchor&quot;:&quot;start&quot;,&quot;distance&quot;:0},&quot;decorators&quot;:{&quot;centre&quot;:&quot;cross&quot;,&quot;centreSize&quot;:1.5}}</code></figcaption>
+</figure>
+<figure>
+<a href="anchor-end.svg"><img src="anchor-end.svg" alt="Anchor end" loading="lazy"></a>
+<figcaption><h3>Anchor end</h3><p>The text ends at the placement point.</p><p class="stats">7 × 5, 35 hexes, 262 strokes, 2.83 m pen down</p><code>{&quot;labels&quot;:{&quot;anchor&quot;:&quot;end&quot;,&quot;distance&quot;:0},&quot;decorators&quot;:{&quot;centre&quot;:&quot;cross&quot;,&quot;centreSize&quot;:1.5}}</code></figcaption>
+</figure></div></section>
+<section><h2>Decorators</h2><p>Each decorator has its own layer, so it can be plotted separately or switched off in Inkscape.</p><div class="grid"><figure>
+<a href="centre-dots.svg"><img src="centre-dots.svg" alt="Centre dots" loading="lazy"></a>
+<figcaption><h3>Centre dots</h3><p>A dot is a tiny real path, so it plots.</p><p class="stats">7 × 5, 35 hexes, 227 strokes, 2.79 m pen down</p><code>{&quot;decorators&quot;:{&quot;centre&quot;:&quot;dot&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="centre-crosses.svg"><img src="centre-crosses.svg" alt="Centre crosses" loading="lazy"></a>
+<figcaption><h3>Centre crosses</h3><p>Size raised to 2 mm.</p><p class="stats">7 × 5, 35 hexes, 262 strokes, 2.86 m pen down</p><code>{&quot;decorators&quot;:{&quot;centre&quot;:&quot;cross&quot;,&quot;centreSize&quot;:2}}</code></figcaption>
+</figure>
+<figure>
+<a href="registration.svg"><img src="registration.svg" alt="Registration marks" loading="lazy"></a>
+<figcaption><h3>Registration marks</h3><p>Crosses just outside the map corners, for lining up pens or sheets.</p><p class="stats">7 × 5, 35 hexes, 200 strokes, 2.28 m pen down</p><code>{&quot;margins&quot;:{&quot;top&quot;:14,&quot;right&quot;:14,&quot;bottom&quot;:14,&quot;left&quot;:14},&quot;decorators&quot;:{&quot;registration&quot;:true,&quot;registrationOffset&quot;:5,&quot;registrationSize&quot;:6}}</code></figcaption>
+</figure>
+<figure>
+<a href="guides.svg"><img src="guides.svg" alt="Guides layer" loading="lazy"></a>
+<figcaption><h3>Guides layer</h3><p>Margins, map edge and theoretical lattice. Named with <code>%</code>, so AxiDraw never plots it.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.36 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:1.5},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
+</figure></div></section>
+<section><h2>Warnings</h2><p>These still produce a file, but Hex Mill tells you about the problem.</p><div class="grid"><figure>
+<a href="warn-travel.svg"><img src="warn-travel.svg" alt="Page exceeds plotter travel" loading="lazy"></a>
+<figcaption><h3>Page exceeds plotter travel</h3><p>A3 portrait is too tall for the AxiDraw SE/A3, though landscape fits.</p><p class="warn">The page (297 × 420 mm) exceeds the AxiDraw SE/A3 travel of 430 × 297 mm.</p><p class="stats">10 × 13, 130 hexes, 696 strokes, 17.77 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;A3&quot;,&quot;orientation&quot;:&quot;portrait&quot;,&quot;width&quot;:null,&quot;height&quot;:null},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:30}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-nextdraw.svg"><img src="warn-nextdraw.svg" alt="Choosing a plotter" loading="lazy"></a>
+<figcaption><h3>Choosing a plotter</h3><p>NextDraw and AxiDraw models are built in. A3 is too big for a NextDraw 8511.</p><p class="warn">The page (420 × 297 mm) exceeds the NextDraw 8511 travel of 300 × 218 mm.</p><p class="stats">15 × 9, 135 hexes, 732 strokes, 18.46 m pen down</p><code>{&quot;page&quot;:{&quot;paper&quot;:&quot;A3&quot;,&quot;orientation&quot;:&quot;landscape&quot;,&quot;width&quot;:null,&quot;height&quot;:null},&quot;lattice&quot;:{&quot;solve&quot;:&quot;count&quot;,&quot;size&quot;:30},&quot;plotter&quot;:{&quot;name&quot;:&quot;NextDraw 8511&quot;,&quot;width&quot;:300,&quot;height&quot;:218}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-custom-plotter.svg"><img src="warn-custom-plotter.svg" alt="Custom travel limit" loading="lazy"></a>
+<figcaption><h3>Custom travel limit</h3><p>The limit can be set for any other plotter.</p><p class="warn">The page (150 × 105 mm) exceeds the custom plotter travel of 120 × 90 mm.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;plotter&quot;:{&quot;name&quot;:&quot;Custom&quot;,&quot;width&quot;:120,&quot;height&quot;:90}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-label-overflow.svg"><img src="warn-label-overflow.svg" alt="Labels too big" loading="lazy"></a>
+<figcaption><h3>Labels too big</h3><p>Labels that cross the hex outline are counted.</p><p class="warn">35 labels extend past their hex outline.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 4.17 m pen down</p><code>{&quot;labels&quot;:{&quot;size&quot;:6}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-hexes-touch.svg"><img src="warn-hexes-touch.svg" alt="Hexes touch" loading="lazy"></a>
+<figcaption><h3>Hexes touch</h3><p>A 0.2 mm channel is narrower than a 0.5 mm pen.</p><p class="warn">At this inset and pen width, neighbouring hexes touch.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.70 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:0.1,&quot;penWidth&quot;:0.5}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-simplify-inset.svg"><img src="warn-simplify-inset.svg" alt="Simplify with an inset" loading="lazy"></a>
+<figcaption><h3>Simplify with an inset</h3><p>Inset hexes share no lines, so simplify has nothing to do.</p><p class="warn">Simplify only applies at inset 0, because inset hexes share no lines.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.48 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:1,&quot;simplify&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-missing-glyph.svg"><img src="warn-missing-glyph.svg" alt="Missing glyph" loading="lazy"></a>
+<figcaption><h3>Missing glyph</h3><p>Characters the font lacks are skipped and named.</p><p class="warn">Font lacks: →</p><p class="stats">7 × 5, 35 hexes, 122 strokes, 2.36 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;custom&quot;,&quot;format&quot;:&quot;%c→%r&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-registration.svg"><img src="warn-registration.svg" alt="Registration mark off the page" loading="lazy"></a>
+<figcaption><h3>Registration mark off the page</h3><p>The margins are too small for the marks.</p><p class="warn">A registration mark falls off the page.</p><p class="stats">7 × 5, 35 hexes, 200 strokes, 2.76 m pen down</p><code>{&quot;decorators&quot;:{&quot;registration&quot;:true}}</code></figcaption>
+</figure></div></section>
+<section><h2>Refused settings</h2><p>Hex Mill won't draw these, and says why.</p><table><tr><td>Hex size of 0</td><td>Hex size must be greater than 0.</td></tr><tr><td>Zero columns</td><td>Columns and rows must be whole numbers of at least 1.</td></tr><tr><td>Margins wider than the page</td><td>The margins leave no room on the page.</td></tr><tr><td>Too many hexes</td><td>That is 58,830 hexes. The limit is 20,000.</td></tr><tr><td>Cut ends with only one column</td><td>Cutting the ends needs at least two lines of hexes.</td></tr><tr><td>Inset of half the hex or more</td><td>Inset must be at least 0 and less than 10 mm for this hex size.</td></tr><tr><td>Hex larger than the page</td><td>Even one hex does not fit in the available area.</td></tr></table></section>
+</body>
+</html>

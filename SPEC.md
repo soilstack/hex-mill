@@ -109,7 +109,22 @@ Centre dots or crosses, corner-only grids and registration marks. A dot is a sma
 
 ## Plotter
 
-The target is the AxiDraw SE/A3, with 430 × 297 mm of travel. The tool warns if the page exceeds this. Other plotters can be entered as a custom size.
+The default is the AxiDraw SE/A3, with 430 × 297 mm of travel. The tool warns if the page exceeds the chosen plotter's travel.
+
+| Plotter | Travel (mm) |
+|---|---|
+| NextDraw 8511 | 300 × 218 |
+| NextDraw 1117 | 430 × 297 |
+| NextDraw 2234 | 864 × 594 |
+| AxiDraw SE/A1 | 864 × 594 |
+| AxiDraw SE/A2 | 594 × 432 |
+| AxiDraw SE/A3, V3/A3 | 430 × 297 |
+| AxiDraw SE/A4, V3, V2 | 300 × 218 |
+| AxiDraw V3 XLX | 595 × 218 |
+| AxiDraw V3/B6 | 190 × 140 |
+| AxiDraw MiniKit | 160 × 101.6 |
+
+Other plotters can be entered as a custom size, or the check can be turned off.
 
 ## Licence
 

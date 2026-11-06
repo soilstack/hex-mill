@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     width="150mm" height="105mm" viewBox="0 0 150 105">
+  <metadata id="hexmill-params"><![CDATA[{"page":{"paper":"Custom","orientation":"landscape","width":150,"height":105},"margins":{"top":6,"right":6,"bottom":6,"left":6},"lattice":{"solve":"size","layout":"odd-q","columns":7,"rows":5,"measure":"flat","size":16,"align":{"x":"center","y":"center"},"cutEnds":false,"cutRagged":false,"closePartials":true,"shortLines":false},"render":{"style":"outline","cornerLength":2,"inset":0,"simplify":false,"penWidth":0.3},"labels":{"enabled":false,"preset":"xxyy","format":null,"letters":"tally","origin":"ul","start":{"col":1,"row":1,"serial":1},"step":{"col":1,"row":1},"serialOrder":"row","every":1,"labelPartials":false,"font":"HersheySans1","size":null,"distance":null,"bearing":0,"rotation":0,"anchor":"middle"},"decorators":{"centre":"none","centreSize":0.6,"registration":false,"registrationOffset":4,"registrationSize":5,"guides":false},"plotter":{"name":"AxiDraw SE/A3","width":430,"height":297}}]]></metadata>
+  <g id="paper" inkscape:groupmode="layer" inkscape:label="% Paper"><rect width="150" height="105" style="fill:#fff;stroke:#bbb;stroke-width:0.2"/></g>
+  <g id="layer1" inkscape:groupmode="layer" inkscape:label="1 Hexes" style="fill:none;stroke:#000;stroke-width:0.3;stroke-linecap:round;stroke-linejoin:round">
+    <path id="hex-q0-r0" d="M40.831 14.455L35.95 22.909L26.188 22.909L21.306 14.455L26.188 6L35.95 6Z"/>
+    <path id="hex-q0-r1" d="M40.831 31.364L35.95 39.818L26.188 39.818L21.306 31.364L26.188 22.909L35.95 22.909Z"/>
+    <path id="hex-q0-r2" d="M40.831 48.273L35.95 56.727L26.188 56.727L21.306 48.273L26.188 39.818L35.95 39.818Z"/>
+    <path id="hex-q0-r3" d="M40.831 65.182L35.95 73.636L26.188 73.636L21.306 65.182L26.188 56.727L35.95 56.727Z"/>
+    <path id="hex-q0-r4" d="M40.831 82.091L35.95 90.545L26.188 90.545L21.306 82.091L26.188 73.636L35.95 73.636Z"/>
+    <path id="hex-q1-r4" d="M55.475 90.545L50.594 99L40.831 99L35.95 90.545L40.831 82.091L50.594 82.091Z"/>
+    <path id="hex-q1-r3" d="M55.475 73.636L50.594 82.091L40.831 82.091L35.95 73.636L40.831 65.182L50.594 65.182Z"/>
+    <path id="hex-q1-r2" d="M55.475 56.727L50.594 65.182L40.831 65.182L35.95 56.727L40.831 48.273L50.594 48.273Z"/>
+    <path id="hex-q1-r1" d="M55.475 39.818L50.594 48.273L40.831 48.273L35.95 39.818L40.831 31.364L50.594 31.364Z"/>
+    <path id="hex-q1-r0" d="M55.475 22.909L50.594 31.364L40.831 31.364L35.95 22.909L40.831 14.455L50.594 14.455Z"/>
+    <path id="hex-q2-r0" d="M70.119 14.455L65.238 22.909L55.475 22.909L50.594 14.455L55.475 6L65.238 6Z"/>
+    <path id="hex-q2-r1" d="M70.119 31.364L65.238 39.818L55.475 39.818L50.594 31.364L55.475 22.909L65.238 22.909Z"/>
+    <path id="hex-q2-r2" d="M70.119 48.273L65.238 56.727L55.475 56.727L50.594 48.273L55.475 39.818L65.238 39.818Z"/>
+    <path id="hex-q2-r3" d="M70.119 65.182L65.238 73.636L55.475 73.636L50.594 65.182L55.475 56.727L65.238 56.727Z"/>
+    <path id="hex-q2-r4" d="M70.119 82.091L65.238 90.545L55.475 90.545L50.594 82.091L55.475 73.636L65.238 73.636Z"/>
+    <path id="hex-q3-r4" d="M84.762 90.545L79.881 99L70.119 99L65.238 90.545L70.119 82.091L79.881 82.091Z"/>
+    <path id="hex-q3-r3" d="M84.762 73.636L79.881 82.091L70.119 82.091L65.238 73.636L70.119 65.182L79.881 65.182Z"/>
+    <path id="hex-q3-r2" d="M84.762 56.727L79.881 65.182L70.119 65.182L65.238 56.727L70.119 48.273L79.881 48.273Z"/>
+    <path id="hex-q3-r1" d="M84.762 39.818L79.881 48.273L70.119 48.273L65.238 39.818L70.119 31.364L79.881 31.364Z"/>
+    <path id="hex-q3-r0" d="M84.762 22.909L79.881 31.364L70.119 31.364L65.238 22.909L70.119 14.455L79.881 14.455Z"/>
+    <path id="hex-q4-r0" d="M99.406 14.455L94.525 22.909L84.762 22.909L79.881 14.455L84.762 6L94.525 6Z"/>
+    <path id="hex-q4-r1" d="M99.406 31.364L94.525 39.818L84.762 39.818L79.881 31.364L84.762 22.909L94.525 22.909Z"/>
+    <path id="hex-q4-r2" d="M99.406 48.273L94.525 56.727L84.762 56.727L79.881 48.273L84.762 39.818L94.525 39.818Z"/>
+    <path id="hex-q4-r3" d="M99.406 65.182L94.525 73.636L84.762 73.636L79.881 65.182L84.762 56.727L94.525 56.727Z"/>
+    <path id="hex-q4-r4" d="M99.406 82.091L94.525 90.545L84.762 90.545L79.881 82.091L84.762 73.636L94.525 73.636Z"/>
+    <path id="hex-q5-r4" d="M114.05 90.545L109.169 99L99.406 99L94.525 90.545L99.406 82.091L109.169 82.091Z"/>
+    <path id="hex-q5-r3" d="M114.05 73.636L109.169 82.091L99.406 82.091L94.525 73.636L99.406 65.182L109.169 65.182Z"/>
+    <path id="hex-q5-r2" d="M114.05 56.727L109.169 65.182L99.406 65.182L94.525 56.727L99.406 48.273L109.169 48.273Z"/>
+    <path id="hex-q5-r1" d="M114.05 39.818L109.169 48.273L99.406 48.273L94.525 39.818L99.406 31.364L109.169 31.364Z"/>
+    <path id="hex-q5-r0" d="M114.05 22.909L109.169 31.364L99.406 31.364L94.525 22.909L99.406 14.455L109.169 14.455Z"/>
+    <path id="hex-q6-r0" d="M128.694 14.455L123.812 22.909L114.05 22.909L109.169 14.455L114.05 6L123.812 6Z"/>
+    <path id="hex-q6-r1" d="M128.694 31.364L123.812 39.818L114.05 39.818L109.169 31.364L114.05 22.909L123.812 22.909Z"/>
+    <path id="hex-q6-r2" d="M128.694 48.273L123.812 56.727L114.05 56.727L109.169 48.273L114.05 39.818L123.812 39.818Z"/>
+    <path id="hex-q6-r3" d="M128.694 65.182L123.812 73.636L114.05 73.636L109.169 65.182L114.05 56.727L123.812 56.727Z"/>
+    <path id="hex-q6-r4" d="M128.694 82.091L123.812 90.545L114.05 90.545L109.169 82.091L114.05 73.636L123.812 73.636Z"/>
+  </g>
+</svg>

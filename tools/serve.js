@@ -1,4 +1,4 @@
-// A tiny static server for previewing dist/ and out/ during development.
+// A tiny static server for previewing dist/, out/ and gallery/ during development.
 
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -6,7 +6,7 @@ import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const project = join(dirname(fileURLToPath(import.meta.url)), '..');
-const roots = [join(project, 'dist'), join(project, 'out')];
+const roots = [join(project, 'dist'), join(project, 'out'), join(project, 'gallery')];
 const types = { '.html': 'text/html', '.svg': 'image/svg+xml' };
 const port = Number(process.argv[2]) || 8123;
 

@@ -1,6 +1,6 @@
 # Hex Mill
 
-Hex Mill makes blank hex grids for tactical wargames, as SVG files ready for Inkscape and a pen plotter such as the AxiDraw.
+Hex Mill makes blank hex grids for tactical wargames, as SVG files ready for Inkscape and a pen plotter such as an AxiDraw or NextDraw.
 
 It's a single HTML file that runs offline. Download [`dist/hexmill.html`](dist/hexmill.html) and open it in a browser.
 
@@ -16,6 +16,8 @@ It's a single HTML file that runs offline. Download [`dist/hexmill.html`](dist/h
 - **Plot statistics:** strokes, pen-down length and pen-up travel for each layer.
 
 Each SVG is sized in millimetres, uses Inkscape layers, and stores its settings, so you can load it back into Hex Mill later.
+
+The [gallery](gallery/README.md) shows every parameter with a working example.
 
 ## Development
 

@@ -349,8 +349,9 @@ export function generate(input = {}, { fonts = {} } = {}) {
 
   const { plotter } = p;
   if (plotter?.width && plotter.height && (g.page.width > plotter.width + 1e-6 || g.page.height > plotter.height + 1e-6)) {
+    const name = plotter.name === 'Custom' ? 'custom plotter' : plotter.name;
     warnings.push(
-      `The page (${num(g.page.width)} × ${num(g.page.height)} mm) exceeds the ${plotter.name} travel of ${plotter.width} × ${plotter.height} mm.`,
+      `The page (${num(g.page.width)} × ${num(g.page.height)} mm) exceeds the ${name} travel of ${plotter.width} × ${plotter.height} mm.`,
     );
   }
   const gap = 2 * inset - penWidth;

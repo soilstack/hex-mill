@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { generate } from '../src/index.js';
-import { DEFAULTS, withDefaults } from '../src/params.js';
+import { DEFAULTS, PLOTTERS, withDefaults } from '../src/params.js';
 import { near } from './helpers.js';
 
 const SQRT3 = Math.sqrt(3);
@@ -201,6 +201,28 @@ test('changing resolved parameters never changes the defaults', () => {
   assert.equal(DEFAULTS.labels.start.col, 1);
   assert.equal(DEFAULTS.margins.top, 10);
   assert.equal(withDefaults({}).lattice.size, 16);
+});
+
+test('plotter presets cover the NextDraw and AxiDraw ranges', () => {
+  assert.deepEqual(PLOTTERS['NextDraw 8511'], { width: 300, height: 218 });
+  assert.deepEqual(PLOTTERS['NextDraw 1117'], { width: 430, height: 297 });
+  assert.deepEqual(PLOTTERS['NextDraw 2234'], { width: 864, height: 594 });
+  assert.deepEqual(PLOTTERS['AxiDraw SE/A2'], { width: 594, height: 432 });
+  assert.deepEqual(PLOTTERS['AxiDraw V3 XLX'], { width: 595, height: 218 });
+  assert.deepEqual(PLOTTERS['AxiDraw MiniKit'], { width: 160, height: 101.6 });
+  assert.equal(Object.keys(PLOTTERS).length, 13);
+  assert.equal(DEFAULTS.plotter.name, 'AxiDraw SE/A3');
+});
+
+test('each plotter accepts paper it fits and warns about paper it does not', () => {
+  const warnings = (paper, name) =>
+    generate({ ...noLabels, page: { paper }, lattice: { size: 40 }, plotter: { name, ...PLOTTERS[name] } }).warnings;
+  assert.deepEqual(warnings('A1', 'NextDraw 2234'), []);
+  assert.ok(warnings('A1', 'NextDraw 1117').some((w) => w.includes('NextDraw 1117')));
+  assert.deepEqual(warnings('A3', 'NextDraw 1117'), []);
+  assert.ok(warnings('A3', 'NextDraw 8511').some((w) => w.includes('NextDraw 8511')));
+  assert.deepEqual(warnings('A4', 'NextDraw 8511'), []);
+  assert.deepEqual(warnings('ANSI D', 'NextDraw 2234'), []);
 });
 
 test('a plotter with no stated size gives no travel warning', () => {

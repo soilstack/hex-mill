@@ -5,13 +5,30 @@ export const PAPER = {
   A4: [210, 297],
   A3: [297, 420],
   A2: [420, 594],
+  A1: [594, 841],
   Letter: [215.9, 279.4],
   Legal: [215.9, 355.6],
   Tabloid: [279.4, 431.8],
+  'ANSI D': [558.8, 863.6],
 };
 
+// Usable pen travel in mm. AxiDraw figures are from Evil Mad Scientist's store
+// pages and axidraw_conf.py. The NextDraw 1117 is from Bantam Tools' spec page.
+// The 8511 and 2234 are from launch coverage, and match the machines they replaced.
 export const PLOTTERS = {
+  'NextDraw 8511': { width: 300, height: 218 },
+  'NextDraw 1117': { width: 430, height: 297 },
+  'NextDraw 2234': { width: 864, height: 594 },
+  'AxiDraw SE/A1': { width: 864, height: 594 },
+  'AxiDraw SE/A2': { width: 594, height: 432 },
   'AxiDraw SE/A3': { width: 430, height: 297 },
+  'AxiDraw SE/A4': { width: 300, height: 218 },
+  'AxiDraw V3/A3': { width: 430, height: 297 },
+  'AxiDraw V3 XLX': { width: 595, height: 218 },
+  'AxiDraw V3': { width: 300, height: 218 },
+  'AxiDraw V2': { width: 300, height: 218 },
+  'AxiDraw V3/B6': { width: 190, height: 140 },
+  'AxiDraw MiniKit': { width: 160, height: 101.6 },
 };
 
 export const LABEL_PRESETS = {
@@ -76,7 +93,7 @@ export const DEFAULTS = {
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 
-function merge(base, over) {
+export function merge(base, over) {
   const out = {};
   for (const [k, v] of Object.entries(base)) out[k] = isObject(v) ? merge(v, {}) : v;
   for (const [k, v] of Object.entries(over ?? {})) {
