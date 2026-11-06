@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { generate, readParams, toSvg } from '../src/index.js';
 import { layoutText, parsePathData, parseSvgFont } from '../src/fonts.js';
 import { letters } from '../src/numbering.js';
+import { LABEL_PRESETS } from '../src/params.js';
 import { loadFonts, near } from './helpers.js';
 
 const fonts = loadFonts();
@@ -71,6 +72,37 @@ test('18xx numbers step by two along a line and alternate between lines', () => 
   assert.equal(t.get('label-q1-r0'), 'B2');
   assert.equal(t.get('label-q2-r0'), 'C1');
   assert.equal(t.get('label-q2-r1'), 'C3');
+});
+
+test('18xx letters rows in pointy-top layouts, with numbers along each row', () => {
+  const even = texts({ preset: '18xx' }, { layout: 'even-r' });
+  assert.equal(even.get('label-q0-r0'), 'A2');
+  assert.equal(even.get('label-q1-r0'), 'A4');
+  assert.equal(even.get('label-q0-r1'), 'B1');
+  assert.equal(even.get('label-q1-r1'), 'B3');
+  assert.equal(even.get('label-q0-r2'), 'C2');
+  const odd = texts({ preset: '18xx' }, { layout: 'odd-r' });
+  assert.equal(odd.get('label-q0-r0'), 'A1');
+  assert.equal(odd.get('label-q1-r0'), 'A3');
+  assert.equal(odd.get('label-q0-r1'), 'B2');
+});
+
+test('every preset gives each hex its own label in every layout and origin', () => {
+  for (const preset of Object.keys(LABEL_PRESETS)) {
+    for (const layout of ['odd-q', 'even-q', 'odd-r', 'even-r']) {
+      for (const origin of ['ul', 'ur', 'll', 'lr']) {
+        const labels = [...texts({ preset, origin }, { layout, columns: 8, rows: 6 }).values()];
+        assert.equal(new Set(labels).size, 48, `${preset} ${layout} ${origin}`);
+      }
+    }
+  }
+});
+
+test('a format that repeats labels warns', () => {
+  const warnings = (labels) =>
+    generate({ labels, lattice: { solve: 'size', columns: 4, rows: 3 }, page: { paper: 'A3' } }, { fonts }).warnings;
+  assert.ok(warnings({ format: '%C' }).some((w) => w.includes("8 labels repeat")));
+  assert.deepEqual(warnings({ format: '%C%r' }), []);
 });
 
 test('origin corners flip the numbering', () => {

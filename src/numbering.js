@@ -1,6 +1,6 @@
 // Hex labels: turns a hex's column and row into text using a format string.
 
-import { LABEL_PRESETS } from './params.js';
+import { LABEL_PRESETS, POINTY_LABEL_PRESETS } from './params.js';
 
 const TOKEN = /%(0?)(\d*)([crCRhn%])/g;
 
@@ -18,9 +18,9 @@ export function letters(index, style = 'tally') {
   return out;
 }
 
-export const labelFormat = (labels) => {
+export const labelFormat = (labels, pointy = false) => {
   if (labels.format) return labels.format;
-  const format = LABEL_PRESETS[labels.preset];
+  const format = (pointy ? POINTY_LABEL_PRESETS[labels.preset] : undefined) ?? LABEL_PRESETS[labels.preset];
   if (!format) throw new Error(`Unknown label preset: ${labels.preset}`);
   return format;
 };
@@ -33,8 +33,8 @@ const digits = (n) => String(Math.abs(Math.trunc(n))).length;
  * says which axis the half-line numbers of `%h` run along.
  */
 export function makeLabeller(labels, grid, hexes) {
-  const format = labelFormat(labels);
   const { columns, rows, pointy } = grid;
+  const format = labelFormat(labels, pointy);
   const { origin, start, step } = labels;
   const fromRight = origin[1] === 'r';
   const fromBottom = origin[0] === 'l';

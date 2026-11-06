@@ -160,8 +160,12 @@ td { padding: 4px 16px 4px 0; border-bottom: 1px solid var(--line); vertical-ali
 <figcaption><h3>Letter-number</h3><p>Lettered columns, numbered rows.</p><p class="stats">7 × 5, 35 hexes, 167 strokes, 2.38 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;letter-number&quot;}}</code></figcaption>
 </figure>
 <figure>
-<a href="18xx.svg"><img src="18xx.svg" alt="18xx" loading="lazy"></a>
-<figcaption><h3>18xx</h3><p>Numbers step by two along a column and alternate between columns.</p><p class="stats">7 × 5, 35 hexes, 170 strokes, 2.41 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;18xx&quot;}}</code></figcaption>
+<a href="18xx.svg"><img src="18xx.svg" alt="18xx, flat-top" loading="lazy"></a>
+<figcaption><h3>18xx, flat-top</h3><p>Columns are lettered. Numbers step by two down a column and alternate between columns.</p><p class="stats">7 × 5, 35 hexes, 170 strokes, 2.41 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;18xx&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="18xx-pointy.svg"><img src="18xx-pointy.svg" alt="18xx, pointy-top" loading="lazy"></a>
+<figcaption><h3>18xx, pointy-top</h3><p>Rows are lettered. Numbers step by two along a row and alternate between rows.</p><p class="stats">7 × 5, 35 hexes, 180 strokes, 2.63 m pen down</p><code>{&quot;lattice&quot;:{&quot;layout&quot;:&quot;odd-r&quot;},&quot;labels&quot;:{&quot;preset&quot;:&quot;18xx&quot;}}</code></figcaption>
 </figure>
 <figure>
 <a href="dotted.svg"><img src="dotted.svg" alt="Dotted" loading="lazy"></a>
@@ -290,6 +294,10 @@ td { padding: 4px 16px 4px 0; border-bottom: 1px solid var(--line); vertical-ali
 <figure>
 <a href="warn-simplify-inset.svg"><img src="warn-simplify-inset.svg" alt="Simplify with an inset" loading="lazy"></a>
 <figcaption><h3>Simplify with an inset</h3><p>Inset hexes share no lines, so simplify has nothing to do.</p><p class="warn">Simplify only applies at inset 0, because inset hexes share no lines.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.48 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:1,&quot;simplify&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-repeated-labels.svg"><img src="warn-repeated-labels.svg" alt="Repeated labels" loading="lazy"></a>
+<figcaption><h3>Repeated labels</h3><p>A format with only a column letter gives every hex in a column the same label.</p><p class="warn">28 labels repeat another hex's label, so this format can't tell those hexes apart.</p><p class="stats">7 × 5, 35 hexes, 125 strokes, 2.23 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;custom&quot;,&quot;format&quot;:&quot;%C&quot;}}</code></figcaption>
 </figure>
 <figure>
 <a href="warn-missing-glyph.svg"><img src="warn-missing-glyph.svg" alt="Missing glyph" loading="lazy"></a>

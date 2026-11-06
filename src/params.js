@@ -39,6 +39,11 @@ export const LABEL_PRESETS = {
   serial: '%0n',
 };
 
+// 18xx letters the straight lines of hexes, which are rows in r layouts.
+export const POINTY_LABEL_PRESETS = {
+  '18xx': '%R%h',
+};
+
 export const DEFAULTS = {
   page: { paper: 'A4', orientation: 'landscape', width: null, height: null },
   margins: { top: 10, right: 10, bottom: 10, left: 10 },

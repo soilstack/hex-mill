@@ -274,6 +274,8 @@ export function generate(input = {}, { fonts = {} } = {}) {
       }
       if (missing.size) warnings.push(`Font lacks: ${[...missing].join(' ')}`);
       if (overflowing) warnings.push(`${overflowing} labels extend past their hex outline.`);
+      const repeats = labelPaths.length - new Set(labelPaths.map((path) => path.label)).size;
+      if (repeats) warnings.push(`${repeats} labels repeat another hex's label, so this format can't tell those hexes apart.`);
     }
   }
 

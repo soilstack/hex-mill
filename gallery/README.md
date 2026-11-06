@@ -375,15 +375,25 @@ Lettered columns, numbered rows.
 
 `{"labels":{"preset":"letter-number"}}`
 
-### 18xx
+### 18xx, flat-top
 
-Numbers step by two along a column and alternate between columns.
+Columns are lettered. Numbers step by two down a column and alternate between columns.
 
-<img src="18xx.svg" alt="18xx" width="480">
+<img src="18xx.svg" alt="18xx, flat-top" width="480">
 
 7 × 5, 35 hexes, 170 strokes, 2.41 m pen down
 
 `{"labels":{"preset":"18xx"}}`
+
+### 18xx, pointy-top
+
+Rows are lettered. Numbers step by two along a row and alternate between rows.
+
+<img src="18xx-pointy.svg" alt="18xx, pointy-top" width="480">
+
+7 × 5, 35 hexes, 180 strokes, 2.63 m pen down
+
+`{"lattice":{"layout":"odd-r"},"labels":{"preset":"18xx"}}`
 
 ### Dotted
 
@@ -728,6 +738,18 @@ Inset hexes share no lines, so simplify has nothing to do.
 > Simplify only applies at inset 0, because inset hexes share no lines.
 
 `{"render":{"inset":1,"simplify":true}}`
+
+### Repeated labels
+
+A format with only a column letter gives every hex in a column the same label.
+
+<img src="warn-repeated-labels.svg" alt="Repeated labels" width="480">
+
+7 × 5, 35 hexes, 125 strokes, 2.23 m pen down
+
+> 28 labels repeat another hex's label, so this format can't tell those hexes apart.
+
+`{"labels":{"preset":"custom","format":"%C"}}`
 
 ### Missing glyph
 

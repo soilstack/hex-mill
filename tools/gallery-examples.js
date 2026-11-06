@@ -84,7 +84,8 @@ export const GROUPS = [
     examples: [
       { name: 'xxyy', title: 'Column-row', note: 'The classic four-digit form, and the default.', params: { labels: { preset: 'xxyy' } } },
       { name: 'letter-number', title: 'Letter-number', note: 'Lettered columns, numbered rows.', params: { labels: { preset: 'letter-number' } } },
-      { name: '18xx', title: '18xx', note: 'Numbers step by two along a column and alternate between columns.', params: { labels: { preset: '18xx' } } },
+      { name: '18xx', title: '18xx, flat-top', note: 'Columns are lettered. Numbers step by two down a column and alternate between columns.', params: { labels: { preset: '18xx' } } },
+      { name: '18xx-pointy', title: '18xx, pointy-top', note: 'Rows are lettered. Numbers step by two along a row and alternate between rows.', params: { lattice: { layout: 'odd-r' }, labels: { preset: '18xx' } } },
       { name: 'dotted', title: 'Dotted', note: 'A separator between column and row.', params: { labels: { preset: 'dotted' } } },
       { name: 'serial-rows', title: 'Serial, along rows', note: 'One running count.', params: { labels: { preset: 'serial' } } },
       { name: 'serial-columns', title: 'Serial, down columns', note: 'Counting from 100, down each column.', params: { labels: { preset: 'serial', serialOrder: 'col', start: { serial: 100 } } } },
@@ -138,6 +139,7 @@ export const GROUPS = [
       { name: 'warn-label-overflow', title: 'Labels too big', note: 'Labels that cross the hex outline are counted.', expect: /extend past their hex/, params: { labels: { size: 6 } } },
       { name: 'warn-hexes-touch', title: 'Hexes touch', note: 'A 0.2 mm channel is narrower than a 0.5 mm pen.', expect: /neighbouring hexes touch/, params: { render: { inset: 0.1, penWidth: 0.5 } } },
       { name: 'warn-simplify-inset', title: 'Simplify with an inset', note: 'Inset hexes share no lines, so simplify has nothing to do.', expect: /Simplify only applies/, params: { render: { inset: 1, simplify: true } } },
+      { name: 'warn-repeated-labels', title: 'Repeated labels', note: 'A format with only a column letter gives every hex in a column the same label.', expect: /repeat another hex/, params: { labels: { preset: 'custom', format: '%C' } } },
       { name: 'warn-missing-glyph', title: 'Missing glyph', note: 'Characters the font lacks are skipped and named.', expect: /Font lacks/, params: { labels: { preset: 'custom', format: '%c→%r' } } },
       { name: 'warn-registration', title: 'Registration mark off the page', note: 'The margins are too small for the marks.', expect: /falls off the page/, params: { decorators: { registration: true } } },
     ],

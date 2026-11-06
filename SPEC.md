@@ -83,7 +83,7 @@ Format tokens, with an optional width such as `%02c`:
 |---|---|---|
 | `xxyy` (default) | `%0c%0r` | `0102` |
 | `letter-number` | `%C%r` | `A1`, `AA3` |
-| `18xx` | `%C%h` | `A1`, `B2`, `C3` |
+| `18xx` | `%C%h` in q layouts, `%R%h` in r layouts | `A1`, `B2`, `C3` |
 | `dotted` | `%0c.%0r` | `01.02` |
 | `serial` | `%0n` | `0001` |
 

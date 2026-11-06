@@ -333,6 +333,11 @@ const LABEL_PRESETS = {
   serial: '%0n',
 };
 
+// 18xx letters the straight lines of hexes, which are rows in r layouts.
+const POINTY_LABEL_PRESETS = {
+  '18xx': '%R%h',
+};
+
 const DEFAULTS = {
   page: { paper: 'A4', orientation: 'landscape', width: null, height: null },
   margins: { top: 10, right: 10, bottom: 10, left: 10 },
@@ -418,7 +423,7 @@ function edgeLength(measure, size) {
   throw new Error(`Unknown hex measure: ${measure}`);
 }
 
-return { PAPER, PLOTTERS, LABEL_PRESETS, DEFAULTS, merge, withDefaults, pageSize, edgeLength };
+return { PAPER, PLOTTERS, LABEL_PRESETS, POINTY_LABEL_PRESETS, DEFAULTS, merge, withDefaults, pageSize, edgeLength };
 })();
 modules["lattice"] = (() => {
 // Lattice geometry.
@@ -814,7 +819,7 @@ return { pointKey, chainSegments, orderStrokes, measure };
 modules["numbering"] = (() => {
 // Hex labels: turns a hex's column and row into text using a format string.
 
-const { LABEL_PRESETS } = modules["params"];
+const { LABEL_PRESETS, POINTY_LABEL_PRESETS } = modules["params"];
 
 const TOKEN = /%(0?)(\d*)([crCRhn%])/g;
 
@@ -832,9 +837,9 @@ function letters(index, style = 'tally') {
   return out;
 }
 
-const labelFormat = (labels) => {
+const labelFormat = (labels, pointy = false) => {
   if (labels.format) return labels.format;
-  const format = LABEL_PRESETS[labels.preset];
+  const format = (pointy ? POINTY_LABEL_PRESETS[labels.preset] : undefined) ?? LABEL_PRESETS[labels.preset];
   if (!format) throw new Error(`Unknown label preset: ${labels.preset}`);
   return format;
 };
@@ -847,8 +852,8 @@ const digits = (n) => String(Math.abs(Math.trunc(n))).length;
  * says which axis the half-line numbers of `%h` run along.
  */
 function makeLabeller(labels, grid, hexes) {
-  const format = labelFormat(labels);
   const { columns, rows, pointy } = grid;
+  const format = labelFormat(labels, pointy);
   const { origin, start, step } = labels;
   const fromRight = origin[1] === 'r';
   const fromBottom = origin[0] === 'l';
@@ -1383,6 +1388,8 @@ function generate(input = {}, { fonts = {} } = {}) {
       }
       if (missing.size) warnings.push(`Font lacks: ${[...missing].join(' ')}`);
       if (overflowing) warnings.push(`${overflowing} labels extend past their hex outline.`);
+      const repeats = labelPaths.length - new Set(labelPaths.map((path) => path.label)).size;
+      if (repeats) warnings.push(`${repeats} labels repeat another hex's label, so this format can't tell those hexes apart.`);
     }
   }
 
