@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hex Mill</title>
+<style>
+/*__STYLE__*/
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <header class="brand">
+      <h1>Hex Mill</h1>
+      <div class="units" role="group" aria-label="Units">
+        <button type="button" data-units="mm">mm</button>
+        <button type="button" data-units="in">in</button>
+      </div>
+    </header>
+    <form id="controls" autocomplete="off"></form>
+  </aside>
+  <main class="stage">
+    <div class="toolbar">
+      <button type="button" class="primary" id="save-svg">Download SVG</button>
+      <button type="button" id="save-params">Save settings</button>
+      <button type="button" id="load">Load…</button>
+      <button type="button" id="reset">Reset</button>
+      <span class="spacer"></span>
+      <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" id="zoom-fit">Fit</button>
+      <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" id="credits">Credits</button>
+    </div>
+    <div class="notices" id="notices" aria-live="polite"></div>
+    <div class="viewport" id="viewport">
+      <svg id="preview" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Page preview"></svg>
+    </div>
+    <div class="readout" id="readout"></div>
+  </main>
+</div>
+<input type="file" id="load-file" accept=".json,.svg" hidden>
+<input type="file" id="font-file" accept=".svg" hidden>
+<dialog id="credits-dialog">
+  <form method="dialog"><button class="close">Close</button></form>
+  <h2>Credits</h2>
+  <p>Stroke fonts come from the <a href="https://gitlab.com/oskay/svg-fonts">Evil Mad Scientist svg-fonts collection</a>. Each font's own notice is below, and the SIL Open Font License follows them.</p>
+  <div id="credits-body"></div>
+</dialog>
+<script type="application/json" id="app-data">/*__DATA__*/</script>
+<script>
+/*__SCRIPT__*/
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "hex-mill",
+  "version": "0.1.0",
+  "description": "Blank hex grids as plotter-ready SVG",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "build": "node tools/build.js",
+    "plot-test": "node tools/plot-test.js",
+    "gallery": "node tools/gallery.js",
+    "serve": "node tools/serve.js"
+  }
+}
