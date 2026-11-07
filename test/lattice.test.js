@@ -182,11 +182,20 @@ test('every layout and edge combination stays within the map', () => {
   }
 });
 
-test('the plotter travel warning catches A3 portrait but not landscape', () => {
-  const warn = (orientation) =>
-    generate({ ...noLabels, page: { paper: 'A3', orientation }, lattice: { size: 20 } }).warnings;
-  assert.deepEqual(warn('landscape'), []);
-  assert.ok(warn('portrait').some((w) => w.includes('AxiDraw SE/A3')));
+test('the plotter travel warning accepts A3 either way round, since the plotter turns it', () => {
+  const warn = (paper, orientation) =>
+    generate({ ...noLabels, page: { paper, orientation }, lattice: { size: 20 } }).warnings;
+  assert.deepEqual(warn('A3', 'landscape'), []);
+  assert.deepEqual(warn('A3', 'portrait'), []);
+  assert.ok(warn('A2', 'landscape').some((w) => w.includes('AxiDraw SE/A3')));
+  assert.ok(warn('A2', 'portrait').some((w) => w.includes('AxiDraw SE/A3')));
+});
+
+test('a custom plotter taller than it is wide accepts a landscape page', () => {
+  const warn = (width, height) =>
+    generate({ ...noLabels, page: { paper: 'A4' }, lattice: { size: 20 }, plotter: { name: 'Custom', width, height } }).warnings;
+  assert.deepEqual(warn(218, 300), []);
+  assert.ok(warn(200, 300).some((w) => w.includes('custom plotter')));
 });
 
 test('changing resolved parameters never changes the defaults', () => {

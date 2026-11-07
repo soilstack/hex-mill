@@ -669,15 +669,15 @@ These still produce a file, but Hex Mill tells you about the problem.
 
 ### Page exceeds plotter travel
 
-A3 portrait is too tall for the AxiDraw SE/A3, though landscape fits.
+A2 is too big for the AxiDraw SE/A3 either way round. A3 portrait fits, because the plotter software turns it.
 
 <img src="warn-travel.svg" alt="Page exceeds plotter travel" width="480">
 
-10 × 13, 130 hexes, 696 strokes, 17.77 m pen down
+15 × 18, 270 hexes, 1464 strokes, 36.27 m pen down
 
-> The page (297 × 420 mm) exceeds the AxiDraw SE/A3 travel of 430 × 297 mm.
+> The page (420 × 594 mm) exceeds the AxiDraw SE/A3 travel of 430 × 297 mm, either way round.
 
-`{"page":{"paper":"A3","orientation":"portrait","width":null,"height":null},"lattice":{"solve":"count","size":30}}`
+`{"page":{"paper":"A2","orientation":"portrait","width":null,"height":null},"lattice":{"solve":"count","size":30}}`
 
 ### Choosing a plotter
 
@@ -687,7 +687,7 @@ NextDraw and AxiDraw models are built in. A3 is too big for a NextDraw 8511.
 
 15 × 9, 135 hexes, 732 strokes, 18.46 m pen down
 
-> The page (420 × 297 mm) exceeds the NextDraw 8511 travel of 300 × 218 mm.
+> The page (420 × 297 mm) exceeds the NextDraw 8511 travel of 300 × 218 mm, either way round.
 
 `{"page":{"paper":"A3","orientation":"landscape","width":null,"height":null},"lattice":{"solve":"count","size":30},"plotter":{"name":"NextDraw 8511","width":300,"height":218}}`
 
@@ -699,7 +699,7 @@ The limit can be set for any other plotter.
 
 7 × 5, 35 hexes, 192 strokes, 2.72 m pen down
 
-> The page (150 × 105 mm) exceeds the custom plotter travel of 120 × 90 mm.
+> The page (150 × 105 mm) exceeds the custom plotter travel of 120 × 90 mm, either way round.
 
 `{"plotter":{"name":"Custom","width":120,"height":90}}`
 

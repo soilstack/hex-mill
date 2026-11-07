@@ -133,7 +133,7 @@ export const GROUPS = [
     title: 'Warnings',
     intro: 'These still produce a file, but Hex Mill tells you about the problem.',
     examples: [
-      { name: 'warn-travel', title: 'Page exceeds plotter travel', note: 'A3 portrait is too tall for the AxiDraw SE/A3, though landscape fits.', expect: /exceeds the AxiDraw SE\/A3/, params: { page: { paper: 'A3', orientation: 'portrait', width: null, height: null }, lattice: { solve: 'count', size: 30 } } },
+      { name: 'warn-travel', title: 'Page exceeds plotter travel', note: 'A2 is too big for the AxiDraw SE/A3 either way round. A3 portrait fits, because the plotter software turns it.', expect: /exceeds the AxiDraw SE\/A3/, params: { page: { paper: 'A2', orientation: 'portrait', width: null, height: null }, lattice: { solve: 'count', size: 30 } } },
       { name: 'warn-nextdraw', title: 'Choosing a plotter', note: 'NextDraw and AxiDraw models are built in. A3 is too big for a NextDraw 8511.', expect: /exceeds the NextDraw 8511/, params: { page: { paper: 'A3', orientation: 'landscape', width: null, height: null }, lattice: { solve: 'count', size: 30 }, plotter: { name: 'NextDraw 8511', width: 300, height: 218 } } },
       { name: 'warn-custom-plotter', title: 'Custom travel limit', note: 'The limit can be set for any other plotter.', expect: /exceeds the custom plotter/, params: { plotter: { name: 'Custom', width: 120, height: 90 } } },
       { name: 'warn-label-overflow', title: 'Labels too big', note: 'Labels that cross the hex outline are counted.', expect: /extend past their hex/, params: { labels: { size: 6 } } },

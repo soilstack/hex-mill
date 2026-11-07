@@ -21,7 +21,7 @@ These checks and check 6 passed on Inkscape 1.4.4 on 2026-11-06. Check 6 first f
 |---|---|
 | `1 Scale` | Ruler, 20 mm hexes and all captions |
 | `2 Inset pen A` | Even columns of the inset ladder |
-| `!3 Inset pen B` | Odd columns of the inset ladder, with a pause before it |
+| `3 Inset pen B` | Odd columns of the inset ladder |
 | `4 Labels` | Label sizes in three fonts |
 | `5 Closed hexes` | 30 hexes as closed paths |
 | `6 Simplified hexes` | The same grid with duplicate lines removed |
@@ -34,9 +34,10 @@ Load A4 paper, then plot each layer on its own, by number, from the **Layers** t
 - Is the ruler exactly 200 mm?
 - Are the hexes exactly 20 mm flat to flat?
 
-**2. Layer pause.** Plot all layers with the pen you intend for pen A, and watch what happens at layer 3.
-- Does `!3 Inset pen B` pause, and does it also still count as layer 3? The AxiDraw documentation doesn't say whether `!` and a number combine.
-- If you plot layer 3 alone by number, is it found?
+**2. Layer numbers.** Plot layer 3 alone by number.
+- Is it found, and does it start drawing straight away?
+
+Layer 3 used to be named `!3 Inset pen B`. A `!` makes the plotter pause before a layer, and the number after it still counts, according to the NextDraw 1.5.0 source. But the pause also fires when that layer is plotted alone, so plotting layer 3 by number stopped before drawing anything. A full plot's time estimate also ended at the pause. Pen changes here are made by plotting each layer on its own instead.
 
 **3. Inset gap.** Plot layers 2 and 3 with two different pens.
 - What is the smallest inset where the two colours stay cleanly apart?

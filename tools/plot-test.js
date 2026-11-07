@@ -94,7 +94,7 @@ scale.push(text(report(simplified), 215, 116));
 const layers = [
   { name: '1 Scale', paths: scale },
   { name: '2 Inset pen A', paths: penA },
-  { name: '!3 Inset pen B', paths: penB, colour: '#c33' },
+  { name: '3 Inset pen B', paths: penB, colour: '#c33' },
   { name: '4 Labels', paths: labels },
   { name: '5 Closed hexes', paths: hexPaths(closed) },
   { name: '6 Simplified hexes', paths: hexPaths(simplified) },

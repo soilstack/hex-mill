@@ -349,11 +349,13 @@ export function generate(input = {}, { fonts = {} } = {}) {
     totals.penUp += result.penUp;
   }
 
+  // The plotter software turns a page to fit by default, so either way round will do.
   const { plotter } = p;
-  if (plotter?.width && plotter.height && (g.page.width > plotter.width + 1e-6 || g.page.height > plotter.height + 1e-6)) {
+  const fits = (width, height) => width <= plotter.width + 1e-6 && height <= plotter.height + 1e-6;
+  if (plotter?.width && plotter.height && !fits(g.page.width, g.page.height) && !fits(g.page.height, g.page.width)) {
     const name = plotter.name === 'Custom' ? 'custom plotter' : plotter.name;
     warnings.push(
-      `The page (${num(g.page.width)} × ${num(g.page.height)} mm) exceeds the ${name} travel of ${plotter.width} × ${plotter.height} mm.`,
+      `The page (${num(g.page.width)} × ${num(g.page.height)} mm) exceeds the ${name} travel of ${plotter.width} × ${plotter.height} mm, either way round.`,
     );
   }
   const gap = 2 * inset - penWidth;
