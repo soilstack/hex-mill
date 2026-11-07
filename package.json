@@ -7,7 +7,7 @@
   "scripts": {
     "test": "node --test",
     "build": "node tools/build.js",
-    "plot-test": "node tools/plot-test.js",
+    "plot-test": "node tools/plot-sheet.js",
     "gallery": "node tools/gallery.js",
     "serve": "node tools/serve.js"
   }
