@@ -653,6 +653,36 @@ Crosses just outside the map corners, for lining up pens or sheets.
 
 `{"margins":{"top":14,"right":14,"bottom":14,"left":14},"decorators":{"registration":true,"registrationOffset":5,"registrationSize":6}}`
 
+### Border
+
+One continuous stroke around the outer edges of the hexes, on its own layer so it can take another pen.
+
+<img src="border.svg" alt="Border" width="480">
+
+7 × 5, 35 hexes, 193 strokes, 3.17 m pen down
+
+`{"decorators":{"border":true}}`
+
+### Border offset
+
+Moved 3 mm out from inset hexes, around a map with straight cut sides.
+
+<img src="border-offset.svg" alt="Border offset" width="480">
+
+7 × 5, 38 hexes, 183 strokes, 3.19 m pen down
+
+`{"lattice":{"cutRagged":true},"render":{"inset":1},"decorators":{"border":true,"borderOffset":3}}`
+
+### Rectangle border
+
+A straight box 2 mm outside the outermost hexes, instead of following their zigzag.
+
+<img src="border-rectangle.svg" alt="Rectangle border" width="480">
+
+7 × 5, 35 hexes, 193 strokes, 3.14 m pen down
+
+`{"decorators":{"border":true,"borderShape":"rectangle","borderOffset":2}}`
+
 ### Guides layer
 
 Margins, map edge and theoretical lattice. Named with `%`, so AxiDraw never plots it.
@@ -762,6 +792,18 @@ Characters the font lacks are skipped and named.
 > Font lacks: →
 
 `{"labels":{"preset":"custom","format":"%c→%r"}}`
+
+### Border offset too large
+
+Past about half a hex, the offset border would fold over itself in the notches of the ragged edge.
+
+<img src="warn-border.svg" alt="Border offset too large" width="480">
+
+7 × 5, 35 hexes, 192 strokes, 2.72 m pen down
+
+> The border offset is too large for the shape of the map edge, so the border is left out.
+
+`{"decorators":{"border":true,"borderOffset":9}}`
 
 ### Registration mark off the page
 

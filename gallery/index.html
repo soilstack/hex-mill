@@ -268,6 +268,18 @@ td { padding: 4px 16px 4px 0; border-bottom: 1px solid var(--line); vertical-ali
 <figcaption><h3>Registration marks</h3><p>Crosses just outside the map corners, for lining up pens or sheets.</p><p class="stats">7 × 5, 35 hexes, 200 strokes, 2.28 m pen down</p><code>{&quot;margins&quot;:{&quot;top&quot;:14,&quot;right&quot;:14,&quot;bottom&quot;:14,&quot;left&quot;:14},&quot;decorators&quot;:{&quot;registration&quot;:true,&quot;registrationOffset&quot;:5,&quot;registrationSize&quot;:6}}</code></figcaption>
 </figure>
 <figure>
+<a href="border.svg"><img src="border.svg" alt="Border" loading="lazy"></a>
+<figcaption><h3>Border</h3><p>One continuous stroke around the outer edges of the hexes, on its own layer so it can take another pen.</p><p class="stats">7 × 5, 35 hexes, 193 strokes, 3.17 m pen down</p><code>{&quot;decorators&quot;:{&quot;border&quot;:true}}</code></figcaption>
+</figure>
+<figure>
+<a href="border-offset.svg"><img src="border-offset.svg" alt="Border offset" loading="lazy"></a>
+<figcaption><h3>Border offset</h3><p>Moved 3 mm out from inset hexes, around a map with straight cut sides.</p><p class="stats">7 × 5, 38 hexes, 183 strokes, 3.19 m pen down</p><code>{&quot;lattice&quot;:{&quot;cutRagged&quot;:true},&quot;render&quot;:{&quot;inset&quot;:1},&quot;decorators&quot;:{&quot;border&quot;:true,&quot;borderOffset&quot;:3}}</code></figcaption>
+</figure>
+<figure>
+<a href="border-rectangle.svg"><img src="border-rectangle.svg" alt="Rectangle border" loading="lazy"></a>
+<figcaption><h3>Rectangle border</h3><p>A straight box 2 mm outside the outermost hexes, instead of following their zigzag.</p><p class="stats">7 × 5, 35 hexes, 193 strokes, 3.14 m pen down</p><code>{&quot;decorators&quot;:{&quot;border&quot;:true,&quot;borderShape&quot;:&quot;rectangle&quot;,&quot;borderOffset&quot;:2}}</code></figcaption>
+</figure>
+<figure>
 <a href="guides.svg"><img src="guides.svg" alt="Guides layer" loading="lazy"></a>
 <figcaption><h3>Guides layer</h3><p>Margins, map edge and theoretical lattice. Named with <code>%</code>, so AxiDraw never plots it.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.36 m pen down</p><code>{&quot;render&quot;:{&quot;inset&quot;:1.5},&quot;decorators&quot;:{&quot;guides&quot;:true}}</code></figcaption>
 </figure></div></section>
@@ -302,6 +314,10 @@ td { padding: 4px 16px 4px 0; border-bottom: 1px solid var(--line); vertical-ali
 <figure>
 <a href="warn-missing-glyph.svg"><img src="warn-missing-glyph.svg" alt="Missing glyph" loading="lazy"></a>
 <figcaption><h3>Missing glyph</h3><p>Characters the font lacks are skipped and named.</p><p class="warn">Font lacks: →</p><p class="stats">7 × 5, 35 hexes, 122 strokes, 2.36 m pen down</p><code>{&quot;labels&quot;:{&quot;preset&quot;:&quot;custom&quot;,&quot;format&quot;:&quot;%c→%r&quot;}}</code></figcaption>
+</figure>
+<figure>
+<a href="warn-border.svg"><img src="warn-border.svg" alt="Border offset too large" loading="lazy"></a>
+<figcaption><h3>Border offset too large</h3><p>Past about half a hex, the offset border would fold over itself in the notches of the ragged edge.</p><p class="warn">The border offset is too large for the shape of the map edge, so the border is left out.</p><p class="stats">7 × 5, 35 hexes, 192 strokes, 2.72 m pen down</p><code>{&quot;decorators&quot;:{&quot;border&quot;:true,&quot;borderOffset&quot;:9}}</code></figcaption>
 </figure>
 <figure>
 <a href="warn-registration.svg"><img src="warn-registration.svg" alt="Registration mark off the page" loading="lazy"></a>

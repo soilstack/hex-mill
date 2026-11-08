@@ -47,7 +47,7 @@ Hex size can be stated as flat-to-flat, edge length or corner-to-corner. Everyth
 
 ## Map edges
 
-There is no rectangle decorator. A straight map edge comes from cutting hexes instead:
+A straight map edge comes from cutting hexes. A rectangle border can frame a ragged map, but it doesn't change the hexes:
 
 - `cutEnds`: the first and last staggered lines are cut in half through their centres.
 - `cutRagged`: the ragged sides are cut straight, leaving half-hexes on alternate lines.
@@ -99,12 +99,17 @@ Other settings and their defaults:
 
 ## Decorators
 
-Centre dots or crosses, corner-only grids and registration marks. A dot is a small real path, since a zero-length path may not plot.
+Centre dots or crosses, corner-only grids, registration marks and a border. A dot is a small real path, since a zero-length path may not plot.
+
+The border is one closed stroke, in one of two shapes. Either way, its offset is measured outward from the drawn hexes.
+
+- `outline` (default): follows the outline of the map, along the hex edges and any cut sides. At offset 0 it runs along the outer hex edges, or the outer edges of inset hexes. Corners are mitred, so the border keeps the hex shape. Past about half a hex, it would fold over itself in the notches of a ragged edge, so it is left out with a warning.
+- `rectangle`: a straight box around the drawn hexes. At offset 0 it touches the outermost hex corners and edges.
 
 ## SVG output
 
 - `width` and `height` in mm, with a `viewBox` in mm, so one user unit is one millimetre.
-- Top-level Inkscape layers: `1 Hexes`, `2 Labels`, `3 Centres`, `4 Registration`, `% Guides`. Empty layers are left out.
+- Top-level Inkscape layers: `1 Hexes`, `2 Labels`, `3 Centres`, `4 Registration`, `5 Border`, `% Guides`. Empty layers are left out.
 - The full parameter set is stored in `<metadata>` so a map can be reloaded.
 
 ## Plotter

@@ -4,7 +4,7 @@
 import { flatten, layoutText, mapPoints } from './fonts.js';
 import {
   clipPolygon, clipSegment, enumerateHexes, hexCorners, lineCounts, mapRect, mapSize,
-  openAtCuts, parseLayout, polygonArea, solveCount, solveSize,
+  offsetPolygon, openAtCuts, outlineLoops, parseLayout, polygonArea, solveCount, solveSize,
 } from './lattice.js';
 import { isLabelled, makeLabeller } from './numbering.js';
 import { edgeLength, pageSize, withDefaults } from './params.js';
@@ -149,6 +149,13 @@ export function generate(input = {}, { fonts = {} } = {}) {
     x1: g.opts.cutEnds ? rect.x1 - pad.x : Infinity,
     y0: g.opts.cutRagged ? rect.y0 + pad.y : -Infinity,
     y1: g.opts.cutRagged ? rect.y1 - pad.y : Infinity,
+  };
+  // The same cuts on the theoretical lattice, with no inset.
+  const edgeClip = {
+    x0: g.opts.cutEnds ? rect.x0 : -Infinity,
+    x1: g.opts.cutEnds ? rect.x1 : Infinity,
+    y0: g.opts.cutRagged ? rect.y0 : -Infinity,
+    y1: g.opts.cutRagged ? rect.y1 : Infinity,
   };
 
   const hexes = enumerateHexes(g.A, g.B, g.opts).map((hex) => ({
@@ -309,6 +316,43 @@ export function generate(input = {}, { fonts = {} } = {}) {
     }
   }
 
+  // Layer 5: a border, either following the map's outline or as a rectangle,
+  // moved out from the drawn hexes.
+  const borderPaths = [];
+  const addBorder = (border) => {
+    borderPaths.push(makePath([polylineSub(border, true)], { id: `border-${borderPaths.length + 1}` }));
+    if (border.some(([x, y]) => x < 0 || y < 0 || x > g.page.width || y > g.page.height)) {
+      warnings.push('The border falls off the page.');
+    }
+  };
+  if (p.decorators.border && valid) {
+    const offset = p.decorators.borderOffset;
+    if (p.decorators.borderShape === 'rectangle') {
+      // The box around the drawn hexes. A loop, since a spread of every point can overflow the stack.
+      let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+      for (const path of hexPaths) {
+        for (const [x, y] of path.polylines.flat()) {
+          x0 = Math.min(x0, x);
+          y0 = Math.min(y0, y);
+          x1 = Math.max(x1, x);
+          y1 = Math.max(y1, y);
+        }
+      }
+      if (x0 <= x1) {
+        addBorder([[x0 - offset, y0 - offset], [x1 + offset, y0 - offset], [x1 + offset, y1 + offset], [x0 - offset, y1 + offset]]);
+      }
+    } else {
+      const polygons = hexes
+        .map((hex) => clipPolygon(hexCorners(hex), edgeClip))
+        .filter((polygon) => polygon.length >= 3 && polygonArea(polygon) > 1e-6);
+      for (const loop of outlineLoops(polygons)) {
+        const border = offsetPolygon(loop.map(toMm), offset - inset);
+        if (border) addBorder(border);
+        else warnings.push('The border offset is too large for the shape of the map edge, so the border is left out.');
+      }
+    }
+  }
+
   // Non-plotting guides: margins, map edge and the theoretical lattice.
   const guidePaths = [];
   if (p.decorators.guides) {
@@ -317,9 +361,8 @@ export function generate(input = {}, { fonts = {} } = {}) {
     guidePaths.push(makePath([box(left, top, g.page.width - left - right, g.page.height - top - bottom)], { id: 'guide-margins' }));
     guidePaths.push(makePath([box(mapBox.x, mapBox.y, mapBox.width, mapBox.height)], { id: 'guide-map' }));
     if (inset > 0) {
-      const theoretical = { x0: clip.x0 === -Infinity ? -Infinity : rect.x0, x1: clip.x1 === Infinity ? Infinity : rect.x1, y0: clip.y0 === -Infinity ? -Infinity : rect.y0, y1: clip.y1 === Infinity ? Infinity : rect.y1 };
       const segments = hexes.flatMap((hex) => {
-        const polygon = clipPolygon(hexCorners(hex), theoretical);
+        const polygon = clipPolygon(hexCorners(hex), edgeClip);
         if (polygon.length < 3) return [];
         return polygon.map((pt, i) => toSegment(pt, polygon[(i + 1) % polygon.length]));
       });
@@ -333,6 +376,7 @@ export function generate(input = {}, { fonts = {} } = {}) {
     { name: '2 Labels', paths: labelPaths },
     { name: '3 Centres', paths: centrePaths },
     { name: '4 Registration', paths: registrationPaths },
+    { name: '5 Border', paths: borderPaths },
     { name: '% Guides', paths: guidePaths, guide: true },
   ].filter((layer) => layer.paths.length);
 

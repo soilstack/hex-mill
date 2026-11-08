@@ -91,6 +91,9 @@ export const DEFAULTS = {
     registration: false,
     registrationOffset: 4,
     registrationSize: 5,
+    border: false,
+    borderShape: 'outline', // outline | rectangle
+    borderOffset: 0, // mm out from the outer edges of the drawn hexes
     guides: true,
   },
   plotter: { name: 'AxiDraw SE/A3', ...PLOTTERS['AxiDraw SE/A3'] },

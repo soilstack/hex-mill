@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import { generate, readParams, toSvg } from '../src/index.js';
 import { layoutText, parsePathData, parseSvgFont } from '../src/fonts.js';
 import { letters } from '../src/numbering.js';
-import { LABEL_PRESETS } from '../src/params.js';
+import { LABEL_PRESETS, withDefaults } from '../src/params.js';
 import { loadFonts, near } from './helpers.js';
 
 const fonts = loadFonts();
@@ -232,8 +232,9 @@ test('parameters survive a real save from Inkscape 1.4.4', () => {
   const restored = readParams(saved);
   assert.equal(restored.lattice.size, 20);
   assert.equal(restored.decorators.centre, 'dot');
+  // The fixture predates later parameters, so load it the way the app does, filling them in.
   const original = generate({ lattice: { size: 20 }, decorators: { centre: 'dot' } }, { fonts });
-  assert.deepEqual(restored, original.params);
+  assert.deepEqual(withDefaults(restored), original.params);
 });
 
 test('parameters can be read however the metadata element is laid out', () => {

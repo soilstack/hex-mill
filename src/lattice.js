@@ -162,6 +162,79 @@ export function polygonArea(points) {
   return Math.abs(sum) / 2;
 }
 
+const signedArea = (points) =>
+  points.reduce((sum, [x0, y0], i) => {
+    const [x1, y1] = points[(i + 1) % points.length];
+    return sum + x0 * y1 - x1 * y0;
+  }, 0) / 2;
+
+/**
+ * The outline of polygons that tile without overlapping, as closed loops.
+ * An edge used by only one polygon is on the outline. Every polygon winds the
+ * same way, so following those edges in their own direction traces each loop.
+ */
+export function outlineLoops(polygons) {
+  const key = ([x, y]) => `${Math.round(x * 1e6)},${Math.round(y * 1e6)}`;
+  const edges = new Map();
+  for (const polygon of polygons) {
+    polygon.forEach((from, i) => {
+      const to = polygon[(i + 1) % polygon.length];
+      const a = key(from);
+      const b = key(to);
+      if (a === b) return;
+      const id = a < b ? `${a}|${b}` : `${b}|${a}`;
+      if (edges.has(id)) edges.get(id).uses++;
+      else edges.set(id, { from, a, b, uses: 1 });
+    });
+  }
+  const outgoing = new Map();
+  for (const edge of edges.values()) if (edge.uses === 1) outgoing.set(edge.a, edge);
+  const loops = [];
+  for (const first of outgoing.values()) {
+    if (first.done) continue;
+    const loop = [];
+    for (let edge = first; edge && !edge.done; edge = outgoing.get(edge.b)) {
+      edge.done = true;
+      loop.push(edge.from);
+    }
+    // Drop points in the middle of straight runs, such as along a cut edge.
+    const corners = loop.filter((p, i) => {
+      const prev = loop[(i + loop.length - 1) % loop.length];
+      const next = loop[(i + 1) % loop.length];
+      return Math.abs((p[0] - prev[0]) * (next[1] - p[1]) - (p[1] - prev[1]) * (next[0] - p[0])) > EPS;
+    });
+    if (corners.length >= 3) loops.push(corners);
+  }
+  return loops;
+}
+
+/**
+ * Move every edge of a closed polygon outward by distance, keeping mitred
+ * corners. Returns null if an edge would turn back on itself, which happens
+ * when the distance is large next to the shortest edges.
+ */
+export function offsetPolygon(points, distance) {
+  const n = points.length;
+  const sign = signedArea(points) > 0 ? 1 : -1;
+  const normals = points.map((p, i) => {
+    const q = points[(i + 1) % n];
+    const length = Math.hypot(q[0] - p[0], q[1] - p[1]);
+    return [(sign * (q[1] - p[1])) / length, (sign * (p[0] - q[0])) / length];
+  });
+  const moved = points.map((p, i) => {
+    const before = normals[(i + n - 1) % n];
+    const after = normals[i];
+    const scale = distance / (1 + before[0] * after[0] + before[1] * after[1]);
+    return [p[0] + (before[0] + after[0]) * scale, p[1] + (before[1] + after[1]) * scale];
+  });
+  const reversed = moved.some((p, i) => {
+    const q = moved[(i + 1) % n];
+    const was = [points[(i + 1) % n][0] - points[i][0], points[(i + 1) % n][1] - points[i][1]];
+    return (q[0] - p[0]) * was[0] + (q[1] - p[1]) * was[1] <= EPS;
+  });
+  return reversed ? null : moved;
+}
+
 /** True if a point lies strictly inside a hex scaled by k, so not on its outline. */
 export function strictlyInsideHex(point, hex, k) {
   const dx = Math.abs(point[0] - hex.cx);

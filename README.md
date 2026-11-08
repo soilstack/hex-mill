@@ -12,7 +12,7 @@ It's a single HTML file that runs offline. Download [`dist/hexmill.html`](dist/h
 - **Inset:** draw each hex smaller than its lattice cell, so neighbouring hexes can be plotted in different colours without touching.
 - **Simplify:** remove duplicate lines and chain the rest into the fewest possible pen strokes.
 - **Labels:** stroke-font labels in common wargame numbering schemes, or your own format. All 41 fonts are built in, and you can load more.
-- **Decorators:** centre dots or crosses, corner-only grids and registration marks.
+- **Decorators:** centre dots or crosses, corner-only grids, registration marks and a border, either following the outline of the map or as a straight rectangle.
 - **Plot statistics:** strokes, pen-down length and pen-up travel for each layer.
 
 Each SVG is sized in millimetres, uses Inkscape layers, and stores its settings, so you can load it back into Hex Mill later.

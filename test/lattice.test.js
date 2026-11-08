@@ -254,3 +254,107 @@ test('the largest square counter matches the review', () => {
   const scene = generate({ ...noLabels, lattice: { size: 20.3 } });
   assert.ok(near(scene.info.largestSquareCounter, 14.86, 0.01));
 });
+
+const borderOf = (scene) => scene.layers.find((layer) => layer.name === '5 Border');
+const segmentsOf = (paths) =>
+  paths.flatMap((path) => path.polylines.flatMap((line) => line.slice(1).map((q, i) => [line[i], q])));
+const segmentLength = ([p, q]) => Math.hypot(q[0] - p[0], q[1] - p[1]);
+function distanceToSegment(point, [p, q]) {
+  const dx = q[0] - p[0];
+  const dy = q[1] - p[1];
+  const t = Math.max(0, Math.min(1, ((point[0] - p[0]) * dx + (point[1] - p[1]) * dy) / (dx * dx + dy * dy)));
+  return Math.hypot(point[0] - p[0] - t * dx, point[1] - p[1] - t * dy);
+}
+
+test('the border is one closed stroke along the outer hex edges, in every layout and cut', () => {
+  const key = ([x, y]) => `${Math.round(x * 1e4)},${Math.round(y * 1e4)}`;
+  for (const layout of ['odd-q', 'even-q', 'odd-r', 'even-r']) {
+    for (const cutEnds of [false, true]) {
+      for (const cutRagged of [false, true]) {
+        for (const shortLines of [false, true]) {
+          const name = `${layout} cutEnds=${cutEnds} cutRagged=${cutRagged} shortLines=${shortLines}`;
+          const scene = grid({ layout, cutEnds, cutRagged, shortLines, columns: 6, rows: 5 }, { decorators: { guides: false, border: true } });
+          const border = borderOf(scene);
+          assert.equal(border.paths.length, 1, name);
+          const [line] = border.paths[0].polylines;
+          assert.equal(key(line[0]), key(line[line.length - 1]), name);
+          // Hex edges drawn only once are the outer edges, and the border covers exactly those.
+          const uses = new Map();
+          for (const [p, q] of segmentsOf(scene.layers[0].paths)) {
+            const id = [key(p), key(q)].sort().join('|');
+            uses.set(id, { length: segmentLength([p, q]), count: (uses.get(id)?.count ?? 0) + 1 });
+          }
+          const outer = [...uses.values()].filter((use) => use.count === 1).reduce((sum, use) => sum + use.length, 0);
+          assert.ok(near(border.stats.penDown, outer, 1e-6), `${name}: ${border.stats.penDown} vs ${outer}`);
+          const corners = segmentsOf(scene.layers[0].paths).flat();
+          for (const point of line) assert.ok(corners.some((c) => key(c) === key(point)), name);
+        }
+      }
+    }
+  }
+});
+
+test('the border offset is measured from the drawn hexes, inset or not', () => {
+  for (const [inset, offset] of [[0, 2], [1, 0], [1, 2.5]]) {
+    const scene = grid({ cutRagged: true }, { render: { inset }, decorators: { guides: false, border: true, borderOffset: offset } });
+    const hexLines = segmentsOf(scene.layers[0].paths);
+    const borderLines = segmentsOf(borderOf(scene).paths);
+    const gap = (point) => Math.min(...hexLines.map((segment) => distanceToSegment(point, segment)));
+    const vertices = borderLines.map(([p]) => gap(p));
+    const midpoints = borderLines.map(([p, q]) => gap([(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]));
+    assert.ok(Math.min(...vertices, ...midpoints) >= offset - 1e-6, `inset ${inset} offset ${offset}`);
+    assert.ok(near(Math.min(...midpoints), offset), `inset ${inset} offset ${offset}`);
+  }
+});
+
+test('the border has its own layer, only when switched on', () => {
+  assert.equal(borderOf(grid({})), undefined);
+  const scene = grid({}, { decorators: { guides: false, border: true } });
+  assert.deepEqual(scene.layers.map((layer) => layer.name), ['1 Hexes', '5 Border']);
+  assert.deepEqual(scene.warnings, []);
+});
+
+test('a border offset too large for the edge notches is refused with a warning', () => {
+  const s = 10;
+  const ok = grid({ solve: 'page', measure: 'edge', size: s }, { decorators: { border: true, borderOffset: 0.8 * s } });
+  assert.equal(borderOf(ok).paths.length, 1);
+  const tooFar = grid({ solve: 'page', measure: 'edge', size: s }, { decorators: { border: true, borderOffset: 0.9 * s } });
+  assert.equal(borderOf(tooFar), undefined);
+  assert.ok(tooFar.warnings.some((w) => w.includes('border offset is too large')));
+});
+
+test('a border that leaves the page warns', () => {
+  const scene = generate({ ...noLabels, margins: { top: 2, right: 2, bottom: 2, left: 2 }, plotter: null, lattice: { solve: 'page', size: 20 }, decorators: { border: true, borderOffset: 5 } });
+  assert.ok(scene.warnings.includes('The border falls off the page.'));
+});
+
+test('a rectangle border boxes the drawn hexes at the offset', () => {
+  const box = (points) => [
+    Math.min(...points.map(([x]) => x)), Math.min(...points.map(([, y]) => y)),
+    Math.max(...points.map(([x]) => x)), Math.max(...points.map(([, y]) => y)),
+  ];
+  for (const layout of ['odd-q', 'odd-r']) {
+    for (const [inset, offset, cutEnds] of [[0, 0, false], [0, 3, false], [1, 2, false], [0.5, 1, true]]) {
+      const name = `${layout} inset ${inset} offset ${offset} cutEnds ${cutEnds}`;
+      const scene = grid({ layout, cutEnds }, { margins: { top: 10, right: 10, bottom: 10, left: 10 }, render: { inset }, decorators: { guides: false, border: true, borderShape: 'rectangle', borderOffset: offset } });
+      const border = borderOf(scene);
+      assert.equal(border.paths.length, 1, name);
+      const [line] = border.paths[0].polylines;
+      assert.equal(line.length, 5, name);
+      const hexes = box(scene.layers[0].paths.flatMap((path) => path.polylines.flat()));
+      const expected = [hexes[0] - offset, hexes[1] - offset, hexes[2] + offset, hexes[3] + offset];
+      box(line).forEach((value, i) => assert.ok(near(value, expected[i]), `${name}: ${box(line)} vs ${expected}`));
+      assert.deepEqual(scene.warnings, [], name);
+    }
+  }
+});
+
+test('a rectangle border has no notch limit, but still warns off the page', () => {
+  const s = 10;
+  const far = grid({ solve: 'page', measure: 'edge', size: s }, { margins: { top: 20, right: 20, bottom: 20, left: 20 }, decorators: { guides: false, border: true, borderShape: 'rectangle', borderOffset: 1.5 * s } });
+  assert.equal(borderOf(far).paths.length, 1);
+  assert.deepEqual(far.warnings, []);
+  const scene = generate({ ...noLabels, margins: { top: 2, right: 2, bottom: 2, left: 2 }, plotter: null, lattice: { solve: 'page', size: 20 }, decorators: { border: true, borderShape: 'rectangle', borderOffset: 15 } });
+  assert.equal(borderOf(scene).paths.length, 1);
+  assert.ok(scene.warnings.includes('The border falls off the page.'));
+});
